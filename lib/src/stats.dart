@@ -18,7 +18,7 @@ class Stats {
       this.standardDeviation)
       : standardError = standardDeviation / math.sqrt(count);
 
-  factory Stats.fromData(Iterable<num> source, {int precision = 4}) {
+  factory Stats.fromData(Iterable<num> source) {
     assert(source != null);
 
     var list = source.toList()..sort();
@@ -61,7 +61,11 @@ class Stats {
       median = (list[firstMiddle] + list[secondMiddle]) / 2.0;
     }
 
-    num fix(num input) {
+    return Stats(count, mean, median, max, min, standardDeviation);
+  }
+
+  Stats withPrecision(int precision) {
+    num _fix(num input) {
       if (precision == null) {
         return input;
       }
@@ -73,8 +77,14 @@ class Stats {
       return double.parse((input as double).toStringAsPrecision(precision));
     }
 
-    return Stats(count, fix(mean), fix(median), fix(max), fix(min),
-        fix(standardDeviation));
+    return new Stats(
+      count,
+      _fix(mean),
+      _fix(median),
+      _fix(max),
+      _fix(min),
+      _fix(standardDeviation),
+    );
   }
 
   factory Stats.fromJson(Map<String, dynamic> json) => _$StatsFromJson(json);
