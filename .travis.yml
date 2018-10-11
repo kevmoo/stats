@@ -1,0 +1,19 @@
+language: dart
+
+dart:
+  - dev
+  - stable
+
+dart_task:
+  - dartfmt
+  - dartanalyzer: --fatal-infos --fatal-warnings .
+  - test: -x presubmit-only -p vm,chrome
+  - test: --run-skipped -t presubmit-only
+
+# Only building master means that we don't run two builds for each pull request.
+branches:
+  only: [master]
+
+cache:
+  directories:
+    - $HOME/.pub-cache
