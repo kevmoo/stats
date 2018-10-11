@@ -66,10 +66,6 @@ class Stats {
 
   Stats withPrecision(int precision) {
     num _fix(num input) {
-      if (precision == null) {
-        return input;
-      }
-
       if (input is int) {
         return input;
       }
