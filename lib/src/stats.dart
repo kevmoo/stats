@@ -86,4 +86,7 @@ class Stats {
   factory Stats.fromJson(Map<String, dynamic> json) => _$StatsFromJson(json);
 
   Map<String, dynamic> toJson() => _$StatsToJson(this);
+
+  @override
+  String toString() => toJson().toString();
 }
