@@ -5,11 +5,10 @@ dart:
   - stable
 
 dart_task:
-  - test: -x presubmit-only
-  - test: -p chrome
-  - test: --run-skipped -t presubmit-only
   - dartfmt
   - dartanalyzer: --fatal-infos --fatal-warnings .
+  - test: -x presubmit-only -p vm,chrome
+  - test: --run-skipped -t presubmit-only
 
 # Only building master means that we don't run two builds for each pull request.
 branches:
