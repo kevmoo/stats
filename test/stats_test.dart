@@ -20,7 +20,8 @@ void main() {
       'median': 0,
       'max': 0,
       'min': 0,
-      'standardDeviation': 0.0
+      'standardDeviation': 0.0,
+      'rms': 0.0
     });
   });
 
@@ -32,7 +33,8 @@ void main() {
       'median': 1.0,
       'max': 2,
       'min': 0,
-      'standardDeviation': 1.0
+      'standardDeviation': 1.0,
+      'rms': 1.4142135623730951
     });
   });
 
@@ -44,7 +46,8 @@ void main() {
       'median': 7.035533905932738,
       'max': 9.9498743710662,
       'min': 0.0,
-      'standardDeviation': 2.3972227599791047
+      'standardDeviation': 2.3972227599791047,
+      'rms': 7.035623639735144
     });
 
     expect(stats.withPrecision(4).toJson(), {
@@ -53,7 +56,8 @@ void main() {
       'median': 7.036,
       'max': 9.95,
       'min': 0.0,
-      'standardDeviation': 2.397
+      'standardDeviation': 2.397,
+      'rms': 7.036
     });
 
     expect(stats.withPrecision(1).toJson(), {
@@ -62,7 +66,8 @@ void main() {
       'median': 7.0,
       'max': 10.0,
       'min': 0.0,
-      'standardDeviation': 2.0
+      'standardDeviation': 2.0,
+      'rms': 7.0
     });
   });
 }

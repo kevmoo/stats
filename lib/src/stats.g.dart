@@ -14,6 +14,7 @@ Stats _$StatsFromJson(Map<String, dynamic> json) {
     json['max'] as num,
     json['min'] as num,
     json['standardDeviation'] as num,
+    json['rms'] as num,
   );
 }
 
@@ -24,4 +25,5 @@ Map<String, dynamic> _$StatsToJson(Stats instance) => <String, dynamic>{
       'max': instance.max,
       'min': instance.min,
       'standardDeviation': instance.standardDeviation,
+      'rms': instance.rms,
     };

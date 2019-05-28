@@ -13,9 +13,10 @@ class Stats {
   final num min;
   final num standardDeviation;
   final num standardError;
+  final num rms;
 
   Stats(this.count, this.mean, this.median, this.max, this.min,
-      this.standardDeviation)
+      this.standardDeviation, this.rms)
       : standardError = standardDeviation / math.sqrt(count);
 
   factory Stats.fromData(Iterable<num> source) {
@@ -35,6 +36,12 @@ class Stats {
     var sum = list.fold(0, (num sum, next) => sum + next);
 
     var mean = sum / count;
+
+    var squareSum = list.fold(0, (num rms, next) => (rms + (next * next)));
+    var ms = squareSum / count;
+
+    // Root Mean Square:  square root of the mean square
+    var rms = math.sqrt(ms);
 
     // variance
     // The average of the squared difference from the Mean
@@ -61,7 +68,7 @@ class Stats {
       median = (list[firstMiddle] + list[secondMiddle]) / 2.0;
     }
 
-    return Stats(count, mean, median, max, min, standardDeviation);
+    return Stats(count, mean, median, max, min, standardDeviation, rms);
   }
 
   Stats withPrecision(int precision) {
@@ -80,6 +87,7 @@ class Stats {
       _fix(max),
       _fix(min),
       _fix(standardDeviation),
+      _fix(rms),
     );
   }
 
