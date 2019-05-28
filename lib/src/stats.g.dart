@@ -8,7 +8,7 @@ part of 'stats.dart';
 
 Stats _$StatsFromJson(Map<String, dynamic> json) {
   return Stats(json['count'] as int, json['mean'] as num, json['median'] as num,
-      json['max'] as num, json['min'] as num, json['standardDeviation'] as num, json[rms] as num);
+      json['max'] as num, json['min'] as num, json['standardDeviation'] as num, json['rms'] as num);
 }
 
 Map<String, dynamic> _$StatsToJson(Stats instance) => <String, dynamic>{
