@@ -16,7 +16,7 @@ class Stats {
   final num rms;
 
   Stats(this.count, this.mean, this.median, this.max, this.min,
-      this.standardDeviation)
+      this.standardDeviation, this.rms)
       : standardError = standardDeviation / math.sqrt(count);
 
   factory Stats.fromData(Iterable<num> source) {
@@ -68,7 +68,7 @@ class Stats {
       median = (list[firstMiddle] + list[secondMiddle]) / 2.0;
     }
 
-    return Stats(count, mean, median, max, min, standardDeviation);
+    return Stats(count, mean, median, max, min, standardDeviation, rms);
   }
 
   Stats withPrecision(int precision) {
@@ -87,6 +87,7 @@ class Stats {
       _fix(max),
       _fix(min),
       _fix(standardDeviation),
+      _fix(rms),
     );
   }
 
