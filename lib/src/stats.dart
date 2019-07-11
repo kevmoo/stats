@@ -73,7 +73,7 @@ class Stats {
       return double.parse((input as double).toStringAsPrecision(precision));
     }
 
-    return new Stats(
+    return Stats(
       count,
       _fix(mean),
       _fix(median),
