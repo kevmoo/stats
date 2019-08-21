@@ -2,7 +2,7 @@ name: stats
 description: >-
   Calculate common statistical values for a set of numbers: max, min, mean,
   median, standard deviation, and standard error.
-version: 0.2.0+2
+version: 0.2.0+3
 homepage: https://github.com/kevmoo/stats
 author: Kevin Moore <kevmoo@google.com>
 
@@ -10,7 +10,7 @@ environment:
   sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
-  json_annotation: '>=1.2.0 <3.0.0'
+  json_annotation: '>=1.2.0 <4.0.0'
 
 dev_dependencies:
   build_runner: ^1.0.0
