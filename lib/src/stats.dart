@@ -33,11 +33,14 @@ class Stats {
     final max = list.last;
     final min = list.first;
 
-    final sum = list.fold(0, (num sum, next) => sum + next);
+    num sum = 0;
+    num squareSum = 0;
+    for (var value in list) {
+      sum += value;
+      squareSum += value * value;
+    }
 
     final mean = sum / count;
-
-    final squareSum = list.fold(0, (num rms, next) => rms + (next * next));
     final ms = squareSum / count;
 
     // Root Mean Square:  square root of the mean square
