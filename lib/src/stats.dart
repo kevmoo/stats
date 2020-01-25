@@ -22,49 +22,49 @@ class Stats {
   factory Stats.fromData(Iterable<num> source) {
     assert(source != null);
 
-    var list = source.toList()..sort();
+    final list = source.toList()..sort();
 
     if (list.isEmpty) {
       throw ArgumentError.value(source, 'source', 'Cannot be empty.');
     }
 
-    var count = list.length;
+    final count = list.length;
 
-    var max = list.last;
-    var min = list.first;
+    final max = list.last;
+    final min = list.first;
 
-    var sum = list.fold(0, (num sum, next) => sum + next);
+    final sum = list.fold(0, (num sum, next) => sum + next);
 
-    var mean = sum / count;
+    final mean = sum / count;
 
-    var squareSum = list.fold(0, (num rms, next) => (rms + (next * next)));
-    var ms = squareSum / count;
+    final squareSum = list.fold(0, (num rms, next) => rms + (next * next));
+    final ms = squareSum / count;
 
     // Root Mean Square:  square root of the mean square
-    var rms = math.sqrt(ms);
+    final rms = math.sqrt(ms);
 
     // variance
     // The average of the squared difference from the Mean
 
     num sumOfSquaredDiffFromMean = 0;
     for (var value in list) {
-      var squareDiffFromMean = math.pow(value - mean, 2);
+      final squareDiffFromMean = math.pow(value - mean, 2);
       sumOfSquaredDiffFromMean += squareDiffFromMean;
     }
 
-    var variance = sumOfSquaredDiffFromMean / count;
+    final variance = sumOfSquaredDiffFromMean / count;
 
     // standardDeviation: sqrt of the variance
-    var standardDeviation = math.sqrt(variance);
+    final standardDeviation = math.sqrt(variance);
 
     num median;
     // if length is odd, take middle value
     if (count % 2 == 1) {
-      var middleIndex = (count / 2 - 0.5).toInt();
+      final middleIndex = (count / 2 - 0.5).toInt();
       median = list[middleIndex];
     } else {
-      var secondMiddle = count ~/ 2;
-      var firstMiddle = secondMiddle - 1;
+      final secondMiddle = count ~/ 2;
+      final firstMiddle = secondMiddle - 1;
       median = (list[firstMiddle] + list[secondMiddle]) / 2.0;
     }
 

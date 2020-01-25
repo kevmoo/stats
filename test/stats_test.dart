@@ -12,7 +12,7 @@ void main() {
   });
 
   test('trivial', () {
-    var stats = Stats.fromData([0]);
+    final stats = Stats.fromData([0]);
 
     expect(stats.toJson(), {
       'count': 1,
@@ -26,7 +26,7 @@ void main() {
   });
 
   test('two simple values', () {
-    var stats = Stats.fromData([0, 2]);
+    final stats = Stats.fromData([0, 2]);
     expect(stats.toJson(), {
       'count': 2,
       'mean': 1.0,
@@ -39,7 +39,7 @@ void main() {
   });
 
   test('precesion', () {
-    var stats = Stats.fromData(Iterable.generate(100, (i) => math.sqrt(i)));
+    final stats = Stats.fromData(Iterable.generate(100, math.sqrt));
     expect(stats.toJson(), {
       'count': 100,
       'mean': 6.614629471031477,
