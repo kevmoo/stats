@@ -4,7 +4,6 @@ description: >-
   median, standard deviation, and standard error.
 version: 1.0.0-dev
 homepage: https://github.com/kevmoo/stats
-author: Kevin Moore <kevmoo@google.com>
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
