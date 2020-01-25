@@ -6,15 +6,13 @@ import 'package:test/test.dart';
 void main() {
   test('empty source is not allowed', () {
     expect(
-        () => Stats.fromData([]),
+        () => <num>[].stats,
         throwsA(isArgumentError.having(
             (e) => e.message, 'message', 'Cannot be empty.')));
   });
 
   test('trivial', () {
-    final stats = Stats.fromData([0]);
-
-    expect(stats.toJson(), {
+    expect([0].stats.toJson(), {
       'count': 1,
       'mean': 0.0,
       'median': 0,
@@ -26,8 +24,7 @@ void main() {
   });
 
   test('two simple values', () {
-    final stats = Stats.fromData([0, 2]);
-    expect(stats.toJson(), {
+    expect([0, 2].stats.toJson(), {
       'count': 2,
       'mean': 1.0,
       'median': 1.0,

@@ -4,6 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'stats.g.dart';
 
+
 @JsonSerializable()
 class Stats {
   final int count;
