@@ -9,7 +9,7 @@ part of 'stats.dart';
 Stats _$StatsFromJson(Map<String, dynamic> json) {
   return Stats(
     json['count'] as int,
-    json['mean'] as num,
+    json['average'] as num,
     json['median'] as num,
     json['max'] as num,
     json['min'] as num,
@@ -20,7 +20,7 @@ Stats _$StatsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$StatsToJson(Stats instance) => <String, dynamic>{
       'count': instance.count,
-      'mean': instance.mean,
+      'average': instance.average,
       'median': instance.median,
       'max': instance.max,
       'min': instance.min,

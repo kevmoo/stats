@@ -4,11 +4,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'stats.g.dart';
 
-
 @JsonSerializable()
 class Stats {
   final int count;
-  final num mean;
+  final num average;
   final num median;
   final num max;
   final num min;
@@ -16,7 +15,7 @@ class Stats {
   final num standardError;
   final num rms;
 
-  Stats(this.count, this.mean, this.median, this.max, this.min,
+  Stats(this.count, this.average, this.median, this.max, this.min,
       this.standardDeviation, this.rms)
       : standardError = standardDeviation / math.sqrt(count);
 
@@ -86,7 +85,7 @@ class Stats {
 
     return Stats(
       count,
-      _fix(mean),
+      _fix(average),
       _fix(median),
       _fix(max),
       _fix(min),

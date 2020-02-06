@@ -1,5 +1,6 @@
 ## 1.0.0
 
+- Renamed `mean` to `average` on `Stats` class.
 - Added `stats` extension property to `Iterable<num>`.
 - Added root mean square – `rms`.
 - Require Dart SDK `>=2.7.0 <3.0.0`.
