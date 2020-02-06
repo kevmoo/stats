@@ -1,5 +1,10 @@
 ## 1.0.0
 
+- Added `LightStats` class and corresponding extension.
+  - Unlike `Stats`, creating `LightStats` does not create and sort a `List` with
+    the entire source contents. It is "cheaper" to use, especially with large
+    inputs.
+  - `Stats` implements `LightStats`.
 - Renamed `mean` to `average` on `Stats` class.
 - Added `stats` extension property to `Iterable<num>`.
 - Added root mean square – `rms`.

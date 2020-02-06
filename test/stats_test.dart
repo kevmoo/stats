@@ -10,6 +10,12 @@ Stats _validateJson(
 ) {
   final stats = values.stats;
   expect(stats.toJson(), expectedJson);
+
+  final lightStats = values.lightStats;
+  for (var entry in lightStats.toJson().entries) {
+    expect(expectedJson, containsPair(entry.key, entry.value));
+  }
+
   expect(values.sum, expectedSum);
   expect(stats.average, values.average);
   return stats;
@@ -18,9 +24,13 @@ Stats _validateJson(
 void main() {
   test('empty source is not allowed', () {
     expect(
-        () => <num>[].stats,
+            () => <num>[].stats,
         throwsA(isArgumentError.having(
-            (e) => e.message, 'message', 'Cannot be empty.')));
+                (e) => e.message, 'message', 'Cannot be empty.')));
+    expect(
+            () => <num>[].lightStats,
+        throwsA(isArgumentError.having(
+                (e) => e.message, 'message', 'Cannot be empty.')));
   });
 
   test('trivial', () {

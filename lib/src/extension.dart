@@ -1,7 +1,10 @@
+import 'light_stats.dart';
 import 'stats.dart';
 
 extension StatsExtensions on Iterable<num> {
   Stats get stats => Stats.fromData(this);
+
+  LightStats get lightStats => LightStats.fromData(this);
 
   /// Returns the sum of all values in `this`.
   num get sum {

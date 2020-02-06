@@ -2,22 +2,35 @@ import 'dart:math' as math;
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'light_stats.dart';
+
 part 'stats.g.dart';
 
 @JsonSerializable()
-class Stats {
+class Stats implements LightStats {
+  @override
   final int count;
+  @override
   final num average;
   final num median;
+  @override
   final num max;
+  @override
   final num min;
   final num standardDeviation;
   final num standardError;
+  @override
   final num rms;
 
-  Stats(this.count, this.average, this.median, this.max, this.min,
-      this.standardDeviation, this.rms)
-      : standardError = standardDeviation / math.sqrt(count);
+  Stats(
+    this.count,
+    this.average,
+    this.median,
+    this.max,
+    this.min,
+    this.standardDeviation,
+    this.rms,
+  ) : standardError = standardDeviation / math.sqrt(count);
 
   factory Stats.fromData(Iterable<num> source) {
     assert(source != null);
@@ -74,6 +87,7 @@ class Stats {
     return Stats(count, mean, median, max, min, standardDeviation, rms);
   }
 
+  @override
   Stats withPrecision(int precision) {
     num _fix(num input) {
       if (input is int) {
@@ -96,8 +110,6 @@ class Stats {
 
   factory Stats.fromJson(Map<String, dynamic> json) => _$StatsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$StatsToJson(this);
-
   @override
-  String toString() => toJson().toString();
+  Map<String, dynamic> toJson() => _$StatsToJson(this);
 }
