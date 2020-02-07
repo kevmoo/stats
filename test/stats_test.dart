@@ -23,14 +23,12 @@ Stats _validateJson(
 
 void main() {
   test('empty source is not allowed', () {
-    expect(
-            () => <num>[].stats,
-        throwsA(isArgumentError.having(
-                (e) => e.message, 'message', 'Cannot be empty.')));
-    expect(
-            () => <num>[].lightStats,
-        throwsA(isArgumentError.having(
-                (e) => e.message, 'message', 'Cannot be empty.')));
+    final matcher = throwsA(
+      isArgumentError.having((e) => e.message, 'message', 'Cannot be empty.'),
+    );
+
+    expect(() => <num>[].stats, matcher);
+    expect(() => <num>[].lightStats, matcher);
   });
 
   test('trivial', () {
