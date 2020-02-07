@@ -32,6 +32,9 @@ class Stats implements LightStats {
     this.rms,
   ) : standardError = standardDeviation / math.sqrt(count);
 
+  /// Note: the implementation creates a [List] from [source] and sorts it.
+  /// For large inputs, this can be memory intensive and/or slow.
+  /// Consider using [LightStats] for large inputs.
   factory Stats.fromData(Iterable<num> source) {
     assert(source != null);
 
