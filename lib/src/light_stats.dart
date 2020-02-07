@@ -10,21 +10,18 @@ class LightStats {
   final num average;
   final num max;
   final num min;
-  final num rms;
 
   LightStats(
     this.count,
     this.average,
     this.max,
     this.min,
-    this.rms,
   );
 
   factory LightStats.fromData(Iterable<num> source) {
     assert(source != null);
 
     num sum = 0;
-    num squareSum = 0;
     var count = 0;
 
     num min, max;
@@ -34,7 +31,6 @@ class LightStats {
       max = (max == null) ? value : math.max(max, value);
       count++;
       sum += value;
-      squareSum += value * value;
     }
 
     if (count == 0) {
@@ -42,12 +38,8 @@ class LightStats {
     }
 
     final mean = sum / count;
-    final rootMeanSquared = squareSum / count;
 
-    // Root Mean Square:  square root of the mean square
-    final rms = math.sqrt(rootMeanSquared);
-
-    return LightStats(count, mean, max, min, rms);
+    return LightStats(count, mean, max, min);
   }
 
   factory LightStats.fromJson(Map<String, dynamic> json) =>
@@ -69,7 +61,6 @@ class LightStats {
       _fix(average),
       _fix(max),
       _fix(min),
-      _fix(rms),
     );
   }
 

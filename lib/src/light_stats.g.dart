@@ -12,7 +12,6 @@ LightStats _$LightStatsFromJson(Map<String, dynamic> json) {
     json['average'] as num,
     json['max'] as num,
     json['min'] as num,
-    json['rms'] as num,
   );
 }
 
@@ -22,5 +21,4 @@ Map<String, dynamic> _$LightStatsToJson(LightStats instance) =>
       'average': instance.average,
       'max': instance.max,
       'min': instance.min,
-      'rms': instance.rms,
     };

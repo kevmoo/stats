@@ -18,8 +18,6 @@ class Stats implements LightStats {
   @override
   final num min;
   final num standardDeviation;
-  @override
-  final num rms;
 
   Stats(
     this.count,
@@ -28,7 +26,6 @@ class Stats implements LightStats {
     this.max,
     this.min,
     this.standardDeviation,
-    this.rms,
   );
 
   /// Note: the implementation creates a [List] from [source] and sorts it.
@@ -54,21 +51,14 @@ class Stats implements LightStats {
     final min = source.first;
 
     num sum = 0;
-    num squareSum = 0;
     for (var value in source) {
       sum += value;
-      squareSum += value * value;
     }
 
     final mean = sum / count;
-    final ms = squareSum / count;
-
-    // Root Mean Square:  square root of the mean square
-    final rms = math.sqrt(ms);
 
     // variance
     // The average of the squared difference from the Mean
-
     num sumOfSquaredDiffFromMean = 0;
     for (var value in source) {
       final squareDiffFromMean = math.pow(value - mean, 2);
@@ -91,7 +81,7 @@ class Stats implements LightStats {
       median = (source[firstMiddle] + source[secondMiddle]) / 2.0;
     }
 
-    return Stats(count, mean, median, max, min, standardDeviation, rms);
+    return Stats(count, mean, median, max, min, standardDeviation);
   }
 
   num get standardError => standardDeviation / math.sqrt(count);
@@ -113,7 +103,6 @@ class Stats implements LightStats {
       _fix(max),
       _fix(min),
       _fix(standardDeviation),
-      _fix(rms),
     );
   }
 

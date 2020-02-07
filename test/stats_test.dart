@@ -64,7 +64,6 @@ void main() {
         'max': 0,
         'min': 0,
         'standardDeviation': 0.0,
-        'rms': 0.0
       },
     );
   });
@@ -80,7 +79,6 @@ void main() {
         'max': 2,
         'min': 0,
         'standardDeviation': 1.0,
-        'rms': 1.4142135623730951
       },
     );
   });
@@ -96,7 +94,6 @@ void main() {
         'max': 9.9498743710662,
         'min': 0.0,
         'standardDeviation': 2.3972227599791047,
-        'rms': 7.035623639735144
       },
     );
 
@@ -109,7 +106,6 @@ void main() {
         'max': 9.95,
         'min': 0.0,
         'standardDeviation': 2.397,
-        'rms': 7.036
       },
     );
 
@@ -122,7 +118,6 @@ void main() {
         'max': 10.0,
         'min': 0.0,
         'standardDeviation': 2.0,
-        'rms': 7.0
       },
     );
   });
