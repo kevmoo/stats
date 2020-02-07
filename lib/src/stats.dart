@@ -18,7 +18,6 @@ class Stats implements LightStats {
   @override
   final num min;
   final num standardDeviation;
-  final num standardError;
   @override
   final num rms;
 
@@ -30,7 +29,7 @@ class Stats implements LightStats {
     this.min,
     this.standardDeviation,
     this.rms,
-  ) : standardError = standardDeviation / math.sqrt(count);
+  );
 
   /// Note: the implementation creates a [List] from [source] and sorts it.
   /// For large inputs, this can be memory intensive and/or slow.
@@ -89,6 +88,8 @@ class Stats implements LightStats {
 
     return Stats(count, mean, median, max, min, standardDeviation, rms);
   }
+
+  num get standardError => standardDeviation / math.sqrt(count);
 
   @override
   Stats withPrecision(int precision) {

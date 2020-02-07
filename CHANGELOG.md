@@ -5,6 +5,8 @@
     the entire source contents. It is "cheaper" to use, especially with large
     inputs.
   - `Stats` implements `LightStats`.
+- `Stats.standardError` is now an on-demand calculated property instead of a
+  field.
 - Renamed `mean` to `average` on `Stats` class.
 - Added `stats` extension property to `Iterable<num>`.
 - Added root mean square – `rms`.
