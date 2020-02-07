@@ -38,19 +38,24 @@ class Stats implements LightStats {
     assert(source != null);
 
     final list = source.toList()..sort();
+    return Stats.fromSortedList(list);
+  }
 
-    if (list.isEmpty) {
+  /// [source] must be sorted (lowest value first) or the output will be
+  /// inaccurate.
+  factory Stats.fromSortedList(List<num> source) {
+    if (source.isEmpty) {
       throw ArgumentError.value(source, 'source', 'Cannot be empty.');
     }
 
-    final count = list.length;
+    final count = source.length;
 
-    final max = list.last;
-    final min = list.first;
+    final max = source.last;
+    final min = source.first;
 
     num sum = 0;
     num squareSum = 0;
-    for (var value in list) {
+    for (var value in source) {
       sum += value;
       squareSum += value * value;
     }
@@ -65,7 +70,7 @@ class Stats implements LightStats {
     // The average of the squared difference from the Mean
 
     num sumOfSquaredDiffFromMean = 0;
-    for (var value in list) {
+    for (var value in source) {
       final squareDiffFromMean = math.pow(value - mean, 2);
       sumOfSquaredDiffFromMean += squareDiffFromMean;
     }
@@ -79,11 +84,11 @@ class Stats implements LightStats {
     // if length is odd, take middle value
     if (count % 2 == 1) {
       final middleIndex = (count / 2 - 0.5).toInt();
-      median = list[middleIndex];
+      median = source[middleIndex];
     } else {
       final secondMiddle = count ~/ 2;
       final firstMiddle = secondMiddle - 1;
-      median = (list[firstMiddle] + list[secondMiddle]) / 2.0;
+      median = (source[firstMiddle] + source[secondMiddle]) / 2.0;
     }
 
     return Stats(count, mean, median, max, min, standardDeviation, rms);

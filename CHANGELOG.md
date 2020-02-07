@@ -5,6 +5,7 @@
     the entire source contents. It is "cheaper" to use, especially with large
     inputs.
   - `Stats` implements `LightStats`.
+- Added `Stats.fromSortedList` factory.
 - `Stats.standardError` is now an on-demand calculated property instead of a
   field.
 - Renamed `mean` to `average` on `Stats` class.
