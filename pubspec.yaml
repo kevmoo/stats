@@ -4,13 +4,12 @@ description: >-
   median, standard deviation, and standard error.
 version: 1.0.0-dev
 homepage: https://github.com/kevmoo/stats
-author: Kevin Moore <kevmoo@google.com>
 
 environment:
-  sdk: '>=2.0.0 <3.0.0'
+  sdk: '>=2.7.0 <3.0.0'
 
 dependencies:
-  json_annotation: '>=1.2.0 <4.0.0'
+  json_annotation: ^3.0.0
 
 dev_dependencies:
   build_runner: ^1.0.0

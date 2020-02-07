@@ -2,52 +2,65 @@ import 'dart:math' as math;
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'light_stats.dart';
+
 part 'stats.g.dart';
 
 @JsonSerializable()
-class Stats {
+class Stats implements LightStats {
+  @override
   final int count;
-  final num mean;
+  @override
+  final num average;
   final num median;
+  @override
   final num max;
+  @override
   final num min;
   final num standardDeviation;
-  final num standardError;
-  final num rms;
 
-  Stats(this.count, this.mean, this.median, this.max, this.min,
-      this.standardDeviation, this.rms)
-      : standardError = standardDeviation / math.sqrt(count);
+  Stats(
+    this.count,
+    this.average,
+    this.median,
+    this.max,
+    this.min,
+    this.standardDeviation,
+  );
 
+  /// Note: the implementation creates a [List] from [source] and sorts it.
+  /// For large inputs, this can be memory intensive and/or slow.
+  /// Consider using [LightStats] for large inputs.
   factory Stats.fromData(Iterable<num> source) {
     assert(source != null);
 
     final list = source.toList()..sort();
+    return Stats.fromSortedList(list);
+  }
 
-    if (list.isEmpty) {
+  /// [source] must be sorted (lowest value first) or the output will be
+  /// inaccurate.
+  factory Stats.fromSortedList(List<num> source) {
+    if (source.isEmpty) {
       throw ArgumentError.value(source, 'source', 'Cannot be empty.');
     }
 
-    final count = list.length;
+    final count = source.length;
 
-    final max = list.last;
-    final min = list.first;
+    final max = source.last;
+    final min = source.first;
 
-    final sum = list.fold(0, (num sum, next) => sum + next);
+    num sum = 0;
+    for (var value in source) {
+      sum += value;
+    }
 
     final mean = sum / count;
 
-    final squareSum = list.fold(0, (num rms, next) => rms + (next * next));
-    final ms = squareSum / count;
-
-    // Root Mean Square:  square root of the mean square
-    final rms = math.sqrt(ms);
-
     // variance
     // The average of the squared difference from the Mean
-
     num sumOfSquaredDiffFromMean = 0;
-    for (var value in list) {
+    for (var value in source) {
       final squareDiffFromMean = math.pow(value - mean, 2);
       sumOfSquaredDiffFromMean += squareDiffFromMean;
     }
@@ -61,16 +74,19 @@ class Stats {
     // if length is odd, take middle value
     if (count % 2 == 1) {
       final middleIndex = (count / 2 - 0.5).toInt();
-      median = list[middleIndex];
+      median = source[middleIndex];
     } else {
       final secondMiddle = count ~/ 2;
       final firstMiddle = secondMiddle - 1;
-      median = (list[firstMiddle] + list[secondMiddle]) / 2.0;
+      median = (source[firstMiddle] + source[secondMiddle]) / 2.0;
     }
 
-    return Stats(count, mean, median, max, min, standardDeviation, rms);
+    return Stats(count, mean, median, max, min, standardDeviation);
   }
 
+  num get standardError => standardDeviation / math.sqrt(count);
+
+  @override
   Stats withPrecision(int precision) {
     num _fix(num input) {
       if (input is int) {
@@ -82,19 +98,16 @@ class Stats {
 
     return Stats(
       count,
-      _fix(mean),
+      _fix(average),
       _fix(median),
       _fix(max),
       _fix(min),
       _fix(standardDeviation),
-      _fix(rms),
     );
   }
 
   factory Stats.fromJson(Map<String, dynamic> json) => _$StatsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$StatsToJson(this);
-
   @override
-  String toString() => toJson().toString();
+  Map<String, dynamic> toJson() => _$StatsToJson(this);
 }
