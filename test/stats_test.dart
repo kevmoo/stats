@@ -3,9 +3,9 @@ import 'dart:math' as math;
 import 'package:stats/stats.dart';
 import 'package:test/test.dart';
 
-Stats _validateJson(
-  Iterable<num> values,
-  num expectedSum,
+Stats _validateJson<T extends num>(
+  Iterable<T> values,
+  T expectedSum,
   Map<String, dynamic> expectedJson,
 ) {
   final stats = values.stats;
@@ -18,6 +18,8 @@ Stats _validateJson(
 
   expect(values.sum, expectedSum);
   expect(stats.average, values.average);
+  expect(stats.min, values.min);
+  expect(stats.max, values.max);
   return stats;
 }
 
@@ -29,6 +31,26 @@ void main() {
 
     expect(() => <num>[].stats, matcher);
     expect(() => <num>[].lightStats, matcher);
+  });
+
+  group('empty', () {
+    test('sum', () {
+      expect(<num>[].sum, 0);
+      expect(<int>[].sum, 0);
+      expect(<double>[].sum, 0);
+    });
+
+    test('max', () {
+      expect(() => <num>[].max, throwsStateError);
+    });
+
+    test('min', () {
+      expect(() => <num>[].min, throwsStateError);
+    });
+
+    test('average', () {
+      expect(() => <num>[].average, throwsArgumentError);
+    });
   });
 
   test('trivial', () {
