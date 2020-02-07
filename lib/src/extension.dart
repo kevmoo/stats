@@ -4,9 +4,9 @@ import 'light_stats.dart';
 import 'stats.dart';
 
 extension StatsExtensions<T extends num> on Iterable<T> {
-  Stats get stats => Stats.fromData(this);
+  Stats<T> get stats => Stats<T>.fromData(this);
 
-  LightStats get lightStats => LightStats.fromData(this);
+  LightStats<T> get lightStats => LightStats<T>.fromData(this);
 
   /// Returns the maximum of all values in `this`.
   T get max => reduce(math.max);

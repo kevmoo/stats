@@ -3,35 +3,28 @@ import 'dart:math' as math;
 import 'package:json_annotation/json_annotation.dart';
 
 import 'light_stats.dart';
+import 'util.dart';
 
 part 'stats.g.dart';
 
 @JsonSerializable()
-class Stats implements LightStats {
-  @override
-  final int count;
-  @override
-  final num average;
+class Stats<T extends num> extends LightStats<T> {
   final num median;
-  @override
-  final num max;
-  @override
-  final num min;
   final num standardDeviation;
 
   Stats(
-    this.count,
-    this.average,
+    int count,
+    num average,
+    T min,
+    T max,
     this.median,
-    this.max,
-    this.min,
     this.standardDeviation,
-  );
+  ) : super(count, average, min, max);
 
   /// Note: the implementation creates a [List] from [source] and sorts it.
   /// For large inputs, this can be memory intensive and/or slow.
   /// Consider using [LightStats] for large inputs.
-  factory Stats.fromData(Iterable<num> source) {
+  factory Stats.fromData(Iterable<T> source) {
     assert(source != null);
 
     final list = source.toList()..sort();
@@ -40,28 +33,27 @@ class Stats implements LightStats {
 
   /// [source] must be sorted (lowest value first) or the output will be
   /// inaccurate.
-  factory Stats.fromSortedList(List<num> source) {
+  factory Stats.fromSortedList(List<T> source) {
     if (source.isEmpty) {
       throw ArgumentError.value(source, 'source', 'Cannot be empty.');
     }
 
     final count = source.length;
-
-    final max = source.last;
     final min = source.first;
+    final max = source.last;
 
     num sum = 0;
     for (var value in source) {
       sum += value;
     }
 
-    final mean = sum / count;
+    final average = sum / count;
 
     // variance
     // The average of the squared difference from the Mean
     num sumOfSquaredDiffFromMean = 0;
     for (var value in source) {
-      final squareDiffFromMean = math.pow(value - mean, 2);
+      final squareDiffFromMean = math.pow(value - average, 2);
       sumOfSquaredDiffFromMean += squareDiffFromMean;
     }
 
@@ -81,7 +73,7 @@ class Stats implements LightStats {
       median = (source[firstMiddle] + source[secondMiddle]) / 2.0;
     }
 
-    return Stats(count, mean, median, max, min, standardDeviation);
+    return Stats(count, average, min, max, median, standardDeviation);
   }
 
   num get standardError => standardDeviation / math.sqrt(count);
@@ -99,9 +91,9 @@ class Stats implements LightStats {
     return Stats(
       count,
       _fix(average),
-      _fix(median),
-      _fix(max),
       _fix(min),
+      _fix(max),
+      _fix(median),
       _fix(standardDeviation),
     );
   }
