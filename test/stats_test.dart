@@ -75,9 +75,9 @@ void main() {
       {
         'count': 2,
         'average': 1.0,
-        'median': 1.0,
-        'max': 2,
         'min': 0,
+        'max': 2,
+        'median': 1.0,
         'standardDeviation': 1.0,
       },
     );

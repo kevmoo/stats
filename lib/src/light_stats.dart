@@ -2,29 +2,35 @@ import 'dart:math' as math;
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'util.dart';
+
 part 'light_stats.g.dart';
 
 @JsonSerializable()
-class LightStats {
+class LightStats<T extends num> {
   final int count;
   final num average;
-  final num max;
-  final num min;
+
+  @JsonKey(fromJson: fromJsonGeneric, toJson: toJsonGeneric)
+  final T min;
+
+  @JsonKey(fromJson: fromJsonGeneric, toJson: toJsonGeneric)
+  final T max;
 
   LightStats(
     this.count,
     this.average,
-    this.max,
     this.min,
+    this.max,
   );
 
-  factory LightStats.fromData(Iterable<num> source) {
+  factory LightStats.fromData(Iterable<T> source) {
     assert(source != null);
 
     num sum = 0;
     var count = 0;
 
-    num min, max;
+    T min, max;
 
     for (var value in source) {
       min = (min == null) ? value : math.min(min, value);
@@ -39,7 +45,7 @@ class LightStats {
 
     final mean = sum / count;
 
-    return LightStats(count, mean, max, min);
+    return LightStats(count, mean, min, max);
   }
 
   factory LightStats.fromJson(Map<String, dynamic> json) =>
@@ -59,8 +65,8 @@ class LightStats {
     return LightStats(
       count,
       _fix(average),
-      _fix(max),
       _fix(min),
+      _fix(max),
     );
   }
 
