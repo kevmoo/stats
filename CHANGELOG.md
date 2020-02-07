@@ -4,12 +4,15 @@
   - Unlike `Stats`, creating `LightStats` does not create and sort a `List` with
     the entire source contents. It is "cheaper" to use, especially with large
     inputs.
-  - `Stats` implements `LightStats`.
-- Added `Stats.fromSortedList` factory.
-- `Stats.standardError` is now an on-demand calculated property instead of a
-  field.
-- Renamed `mean` to `average` on `Stats` class.
-- Added `stats` extension property to `Iterable<num>`.
+- `Stats`
+  - Now has a type argument `<T extends num>`.
+  - implements `LightStats`.
+  - Added `fromSortedList` factory.
+  - `standardError` is now an on-demand calculated property instead of a
+    field.
+  - Renamed `mean` to `average`.
+- Added `Iterable<num>` extensions: `lightStats`, `stats`, `min`, `max`, `sum`
+  and `average`.
 - Require Dart SDK `>=2.7.0 <3.0.0`.
 
 ## 0.2.0+3
