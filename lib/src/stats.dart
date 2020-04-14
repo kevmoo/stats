@@ -62,15 +62,11 @@ class Stats<T extends num> extends LightStats<T> {
     // standardDeviation: sqrt of the variance
     final standardDeviation = math.sqrt(variance);
 
-    num median;
-    // if length is odd, take middle value
-    if (count % 2 == 1) {
-      final middleIndex = (count / 2 - 0.5).toInt();
-      median = source[middleIndex];
-    } else {
-      final secondMiddle = count ~/ 2;
-      final firstMiddle = secondMiddle - 1;
-      median = (source[firstMiddle] + source[secondMiddle]) / 2.0;
+    final middleIndex = count ~/ 2;
+    num median = source[middleIndex];
+    // if length is even, average the "middle" values
+    if (count.isEven) {
+      median = (source[middleIndex - 1] + median) / 2.0;
     }
 
     return Stats(count, average, min, max, median, standardDeviation);
