@@ -83,6 +83,36 @@ void main() {
     );
   });
 
+  test('10 values', () {
+    _validateJson(
+      Iterable.generate(10, (i) => i),
+      45,
+      {
+        'count': 10,
+        'average': 4.5,
+        'min': 0,
+        'max': 9,
+        'median': 4.5,
+        'standardDeviation': 2.8722813232690143
+      },
+    );
+  });
+
+  test('11 values', () {
+    _validateJson(
+      Iterable.generate(11, (i) => i),
+      55,
+      {
+        'count': 11,
+        'average': 5.0,
+        'min': 0,
+        'max': 10,
+        'median': 5,
+        'standardDeviation': 3.1622776601683795
+      },
+    );
+  });
+
   test('precesion', () {
     final stats = _validateJson(
       Iterable.generate(100, math.sqrt),
