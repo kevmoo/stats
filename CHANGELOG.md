@@ -1,5 +1,9 @@
 ## 1.0.0
 
+- Allow `package:json_annotation` `v4.x`.
+
+## 1.0.0
+
 - Added `LightStats` class and corresponding extension.
   - Unlike `Stats`, creating `LightStats` does not create and sort a `List` with
     the entire source contents. It is "cheaper" to use, especially with large
