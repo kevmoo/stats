@@ -1,4 +1,4 @@
-## 1.0.0
+## 1.0.1
 
 - Allow `package:json_annotation` `v4.x`.
 
