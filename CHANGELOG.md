@@ -1,3 +1,7 @@
+## 1.0.2-dev
+
+- Require at least Dart 2.10
+
 ## 1.0.1
 
 - Allow `package:json_annotation` `v4.x`.
