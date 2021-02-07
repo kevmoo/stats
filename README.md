@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/kevmoo/stats.svg?branch=master)](https://travis-ci.org/kevmoo/stats)
-![Pub](https://img.shields.io/pub/v/stats.svg)
+[![CI](https://github.com/kevmoo/stats/workflows/CI/badge.svg?branch=master)](https://github.com/kevmoo/stats/actions?query=workflow%3ACI+branch%3Amaster)
+[![Pub Package](https://img.shields.io/pub/v/stats.svg)](https://pub.dev/packages/stats)
 
 ```dart
 import 'package:stats/stats.dart';

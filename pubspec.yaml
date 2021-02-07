@@ -2,11 +2,11 @@ name: stats
 description: >-
   Calculate common statistical values for a set of numbers: max, min, mean,
   median, standard deviation, and standard error.
-version: 1.0.1
+version: 1.0.2-dev
 repository: https://github.com/kevmoo/stats
 
 environment:
-  sdk: '>=2.7.0 <3.0.0'
+  sdk: '>=2.10.0 <3.0.0'
 
 dependencies:
   json_annotation: '>=3.0.0 <5.0.0'
