@@ -12,8 +12,8 @@ Stats<T> _$StatsFromJson<T extends num>(Map<String, dynamic> json) {
   return Stats<T>(
     json['count'] as int,
     json['average'] as num,
-    fromJsonGeneric(json['min']),
-    fromJsonGeneric(json['max']),
+    fromJsonGeneric(json['min'] as Object),
+    fromJsonGeneric(json['max'] as Object),
     json['median'] as num,
     json['standardDeviation'] as num,
   );

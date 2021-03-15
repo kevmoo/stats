@@ -12,8 +12,8 @@ LightStats<T> _$LightStatsFromJson<T extends num>(Map<String, dynamic> json) {
   return LightStats<T>(
     json['count'] as int,
     json['average'] as num,
-    fromJsonGeneric(json['min']),
-    fromJsonGeneric(json['max']),
+    fromJsonGeneric(json['min'] as Object),
+    fromJsonGeneric(json['max'] as Object),
   );
 }
 

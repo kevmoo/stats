@@ -1,6 +1,7 @@
-## 1.0.2-dev
+## 2.0.0
 
-- Require at least Dart 2.10
+- Require at least Dart 2.12
+- Null safety
 
 ## 1.0.1
 
