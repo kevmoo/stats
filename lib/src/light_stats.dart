@@ -25,12 +25,10 @@ class LightStats<T extends num> {
   );
 
   factory LightStats.fromData(Iterable<T> source) {
-    assert(source != null);
-
     num sum = 0;
     var count = 0;
 
-    T min, max;
+    T? min, max;
 
     for (var value in source) {
       min = (min == null) ? value : math.min(min, value);
@@ -45,7 +43,7 @@ class LightStats<T extends num> {
 
     final mean = sum / count;
 
-    return LightStats(count, mean, min, max);
+    return LightStats(count, mean, min!, max!);
   }
 
   factory LightStats.fromJson(Map<String, dynamic> json) =>

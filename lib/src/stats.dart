@@ -25,8 +25,6 @@ class Stats<T extends num> extends LightStats<T> {
   /// For large inputs, this can be memory intensive and/or slow.
   /// Consider using [LightStats] for large inputs.
   factory Stats.fromData(Iterable<T> source) {
-    assert(source != null);
-
     final list = source.toList()..sort();
     return Stats.fromSortedList(list);
   }
