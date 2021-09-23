@@ -1,23 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: prefer_expression_function_bodies
-
 part of 'stats.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Stats<T> _$StatsFromJson<T extends num>(Map<String, dynamic> json) {
-  return Stats<T>(
-    json['count'] as int,
-    json['average'] as num,
-    fromJsonGeneric(json['min'] as Object),
-    fromJsonGeneric(json['max'] as Object),
-    json['median'] as num,
-    json['standardDeviation'] as num,
-  );
-}
+Stats<T> _$StatsFromJson<T extends num>(Map<String, dynamic> json) => Stats<T>(
+      json['count'] as int,
+      json['average'] as num,
+      fromJsonGeneric(json['min'] as Object),
+      fromJsonGeneric(json['max'] as Object),
+      json['median'] as num,
+      json['standardDeviation'] as num,
+    );
 
 Map<String, dynamic> _$StatsToJson<T extends num>(Stats<T> instance) =>
     <String, dynamic>{
