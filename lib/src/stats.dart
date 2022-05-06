@@ -55,7 +55,7 @@ class Stats<T extends num> extends LightStats<T> {
       sumOfSquaredDiffFromMean += squareDiffFromMean;
     }
 
-    final variance = sumOfSquaredDiffFromMean / count;
+    final variance = sumOfSquaredDiffFromMean / (count-1);
 
     // standardDeviation: sqrt of the variance
     final standardDeviation = math.sqrt(variance);
