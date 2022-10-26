@@ -1,6 +1,6 @@
 ## 2.0.1-dev
 
-- Require at least Dart 2.14
+- Require at least Dart 2.18
 
 ## 2.0.0
 

@@ -52,7 +52,7 @@ class LightStats<T extends num> {
   Map<String, dynamic> toJson() => _$LightStatsToJson(this);
 
   LightStats withPrecision(int precision) {
-    num _fix(num input) {
+    num fix(num input) {
       if (input is int) {
         return input;
       }
@@ -62,9 +62,9 @@ class LightStats<T extends num> {
 
     return LightStats(
       count,
-      _fix(average),
-      _fix(min),
-      _fix(max),
+      fix(average),
+      fix(min),
+      fix(max),
     );
   }
 
