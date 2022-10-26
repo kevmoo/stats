@@ -1,5 +1,6 @@
 [![CI](https://github.com/kevmoo/stats/workflows/CI/badge.svg?branch=master)](https://github.com/kevmoo/stats/actions?query=workflow%3ACI+branch%3Amaster)
 [![Pub Package](https://img.shields.io/pub/v/stats.svg)](https://pub.dev/packages/stats)
+[![package publisher](https://img.shields.io/pub/publisher/stats.svg)](https://pub.dev/packages/stats/publisher)
 
 ```dart
 import 'package:stats/stats.dart';

@@ -13,13 +13,13 @@ class Stats<T extends num> extends LightStats<T> {
   final num standardDeviation;
 
   Stats(
-    int count,
-    num average,
-    T min,
-    T max,
+    super.count,
+    super.average,
+    super.min,
+    super.max,
     this.median,
     this.standardDeviation,
-  ) : super(count, average, min, max);
+  );
 
   /// Note: the implementation creates a [List] from [source] and sorts it.
   /// For large inputs, this can be memory intensive and/or slow.
@@ -74,7 +74,7 @@ class Stats<T extends num> extends LightStats<T> {
 
   @override
   Stats withPrecision(int precision) {
-    num _fix(num input) {
+    num fix(num input) {
       if (input is int) {
         return input;
       }
@@ -84,11 +84,11 @@ class Stats<T extends num> extends LightStats<T> {
 
     return Stats(
       count,
-      _fix(average),
-      _fix(min),
-      _fix(max),
-      _fix(median),
-      _fix(standardDeviation),
+      fix(average),
+      fix(min),
+      fix(max),
+      fix(median),
+      fix(standardDeviation),
     );
   }
 
