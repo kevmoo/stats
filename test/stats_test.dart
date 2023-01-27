@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:checks/checks.dart';
 import 'package:stats/stats.dart';
 import 'package:test/scaffolding.dart';
-import 'package:test/test.dart' as legacy show containsPair, expect;
 
 Stats _validateJson<T extends num>(
   Iterable<T> values,
@@ -16,9 +15,7 @@ Stats _validateJson<T extends num>(
 
   final lightStats = values.lightStats;
   for (var entry in lightStats.toJson().entries) {
-    // TODO: remove when pkg:checks has this
-    // https://github.com/dart-lang/test/issues/1879
-    legacy.expect(expectedJson, legacy.containsPair(entry.key, entry.value));
+    checkThat(expectedJson)[entry.key].equals(entry.value);
   }
 
   checkThat(values.sum).equals(expectedSum);
