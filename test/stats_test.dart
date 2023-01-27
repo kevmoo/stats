@@ -1,7 +1,9 @@
 import 'dart:math' as math;
 
+import 'package:checks/checks.dart';
 import 'package:stats/stats.dart';
-import 'package:test/test.dart';
+import 'package:test/scaffolding.dart';
+import 'package:test/test.dart' as legacy show containsPair, expect;
 
 Stats _validateJson<T extends num>(
   Iterable<T> values,
@@ -9,47 +11,51 @@ Stats _validateJson<T extends num>(
   Map<String, dynamic> expectedJson,
 ) {
   final stats = values.stats;
-  expect(stats.toJson(), expectedJson);
+
+  checkThat(stats.toJson()).deepEquals(expectedJson);
 
   final lightStats = values.lightStats;
   for (var entry in lightStats.toJson().entries) {
-    expect(expectedJson, containsPair(entry.key, entry.value));
+    // TODO: remove when pkg:checks has this
+    // https://github.com/dart-lang/test/issues/1879
+    legacy.expect(expectedJson, legacy.containsPair(entry.key, entry.value));
   }
 
-  expect(values.sum, expectedSum);
-  expect(stats.average, values.average);
-  expect(stats.min, values.min);
-  expect(stats.max, values.max);
+  checkThat(values.sum).equals(expectedSum);
+  checkThat(stats.average).equals(values.average);
+  checkThat(stats.min).equals(values.min);
+  checkThat(stats.max).equals(values.max);
   return stats;
 }
 
 void main() {
   test('empty source is not allowed', () {
-    final matcher = throwsA(
-      isArgumentError.having((e) => e.message, 'message', 'Cannot be empty.'),
-    );
+    final condition = it<ArgumentError>()
+      ..has((p0) => p0.message, 'message').equals('Cannot be empty.');
 
-    expect(() => <num>[].stats, matcher);
-    expect(() => <num>[].lightStats, matcher);
+    checkThat(() => <num>[].stats).throws<ArgumentError>().which(condition);
+    checkThat(() => <num>[].lightStats)
+        .throws<ArgumentError>()
+        .which(condition);
   });
 
   group('empty', () {
     test('sum', () {
-      expect(<num>[].sum, 0);
-      expect(<int>[].sum, 0);
-      expect(<double>[].sum, 0);
+      checkThat(<num>[].sum).equals(0);
+      checkThat(<int>[].sum).equals(0);
+      checkThat(<double>[].sum).equals(0);
     });
 
     test('max', () {
-      expect(() => <num>[].max, throwsStateError);
+      checkThat(() => <num>[].max).throws<StateError>();
     });
 
     test('min', () {
-      expect(() => <num>[].min, throwsStateError);
+      checkThat(() => <num>[].min).throws<StateError>();
     });
 
     test('average', () {
-      expect(() => <num>[].average, throwsArgumentError);
+      checkThat(() => <num>[].average).throws<ArgumentError>();
     });
   });
 
@@ -113,7 +119,7 @@ void main() {
     );
   });
 
-  test('precesion', () {
+  test('precision', () {
     final stats = _validateJson(
       Iterable.generate(100, math.sqrt),
       661.4629471031477,
@@ -127,8 +133,7 @@ void main() {
       },
     );
 
-    expect(
-      stats.withPrecision(4).toJson(),
+    checkThat(stats.withPrecision(4).toJson()).deepEquals(
       {
         'count': 100,
         'average': 6.615,
@@ -139,8 +144,7 @@ void main() {
       },
     );
 
-    expect(
-      stats.withPrecision(1).toJson(),
+    checkThat(stats.withPrecision(1).toJson()).deepEquals(
       {
         'count': 100,
         'average': 7.0,
