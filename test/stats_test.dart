@@ -11,17 +11,17 @@ Stats _validateJson<T extends num>(
 ) {
   final stats = values.stats;
 
-  checkThat(stats.toJson()).deepEquals(expectedJson);
+  check(stats.toJson()).deepEquals(expectedJson);
 
   final lightStats = values.lightStats;
   for (var entry in lightStats.toJson().entries) {
-    checkThat(expectedJson)[entry.key].equals(entry.value);
+    check(expectedJson)[entry.key].equals(entry.value);
   }
 
-  checkThat(values.sum).equals(expectedSum);
-  checkThat(stats.average).equals(values.average);
-  checkThat(stats.min).equals(values.min);
-  checkThat(stats.max).equals(values.max);
+  check(values.sum).equals(expectedSum);
+  check(stats.average).equals(values.average);
+  check(stats.min).equals(values.min);
+  check(stats.max).equals(values.max);
   return stats;
 }
 
@@ -30,31 +30,31 @@ void main() {
     final messageIsCannotBeEmpty = it<ArgumentError>()
       ..has((p0) => p0.message, 'message').equals('Cannot be empty.');
 
-    checkThat(() => <num>[].stats)
+    check(() => <num>[].stats)
         .throws<ArgumentError>()
         .which(messageIsCannotBeEmpty);
-    checkThat(() => <num>[].lightStats)
+    check(() => <num>[].lightStats)
         .throws<ArgumentError>()
         .which(messageIsCannotBeEmpty);
   });
 
   group('empty', () {
     test('sum', () {
-      checkThat(<num>[].sum).equals(0);
-      checkThat(<int>[].sum).equals(0);
-      checkThat(<double>[].sum).equals(0);
+      check(<num>[].sum).equals(0);
+      check(<int>[].sum).equals(0);
+      check(<double>[].sum).equals(0);
     });
 
     test('max', () {
-      checkThat(() => <num>[].max).throws<StateError>();
+      check(() => <num>[].max).throws<StateError>();
     });
 
     test('min', () {
-      checkThat(() => <num>[].min).throws<StateError>();
+      check(() => <num>[].min).throws<StateError>();
     });
 
     test('average', () {
-      checkThat(() => <num>[].average).throws<ArgumentError>();
+      check(() => <num>[].average).throws<ArgumentError>();
     });
   });
 
@@ -132,7 +132,7 @@ void main() {
       },
     );
 
-    checkThat(stats.withPrecision(4).toJson()).deepEquals(
+    check(stats.withPrecision(4).toJson()).deepEquals(
       {
         'count': 100,
         'average': 6.615,
@@ -143,7 +143,7 @@ void main() {
       },
     );
 
-    checkThat(stats.withPrecision(1).toJson()).deepEquals(
+    check(stats.withPrecision(1).toJson()).deepEquals(
       {
         'count': 100,
         'average': 7.0,
