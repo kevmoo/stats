@@ -1,5 +1,6 @@
 ## 2.0.1-wip
 
+- Export `LightStats`.
 - Require at least Dart 3.0
 
 ## 2.0.0
