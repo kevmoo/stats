@@ -49,6 +49,30 @@ class LightStats<T extends num> {
   factory LightStats.fromJson(Map<String, dynamic> json) =>
       _$LightStatsFromJson(json);
 
+  static Future<LightStats<T>> fromStream<T extends num>(
+    Stream<T> source,
+  ) async {
+    num sum = 0;
+    var count = 0;
+
+    T? min, max;
+
+    await for (var value in source) {
+      min = (min == null) ? value : math.min(min, value);
+      max = (max == null) ? value : math.max(max, value);
+      count++;
+      sum += value;
+    }
+
+    if (count == 0) {
+      throw ArgumentError.value(source, 'source', 'Cannot be empty.');
+    }
+
+    final mean = sum / count;
+
+    return LightStats<T>(count, mean, min!, max!);
+  }
+
   Map<String, dynamic> toJson() => _$LightStatsToJson(this);
 
   LightStats withPrecision(int precision) {
