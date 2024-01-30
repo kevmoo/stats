@@ -27,15 +27,15 @@ Stats _validateJson<T extends num>(
 
 void main() {
   test('empty source is not allowed', () {
-    final messageIsCannotBeEmpty = it<ArgumentError>()
-      ..has((p0) => p0.message, 'message').equals('Cannot be empty.');
+    check(() => <num>[].stats).throws<ArgumentError>().which(
+          (it) =>
+              it.has((p0) => p0.message, 'message').equals('Cannot be empty.'),
+        );
 
-    check(() => <num>[].stats)
-        .throws<ArgumentError>()
-        .which(messageIsCannotBeEmpty);
-    check(() => <num>[].lightStats)
-        .throws<ArgumentError>()
-        .which(messageIsCannotBeEmpty);
+    check(() => <num>[].lightStats).throws<ArgumentError>().which(
+          (it) =>
+              it.has((p0) => p0.message, 'message').equals('Cannot be empty.'),
+        );
   });
 
   group('empty', () {
