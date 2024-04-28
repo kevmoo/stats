@@ -1,3 +1,5 @@
+## 2.1.1-wip
+
 ## 2.1.0
 
 - Export `LightStats`.

@@ -8,7 +8,7 @@ part of 'light_stats.dart';
 
 LightStats<T> _$LightStatsFromJson<T extends num>(Map<String, dynamic> json) =>
     LightStats<T>(
-      json['count'] as int,
+      (json['count'] as num).toInt(),
       json['average'] as num,
       fromJsonGeneric(json['min'] as Object),
       fromJsonGeneric(json['max'] as Object),
