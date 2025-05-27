@@ -56,7 +56,7 @@ jobs:
       - id: install
         name: Install dependencies
         run: dart pub get
-      - run: dart test -x presubmit-only -p vm,chrome
+      - run: dart test -x presubmit-only -p vm,chrome --compiler dart2wasm,dart2js
         if: always() && steps.install.outcome == 'success'
       - run: dart test --run-skipped -t presubmit-only
         if: always() && steps.install.outcome == 'success'

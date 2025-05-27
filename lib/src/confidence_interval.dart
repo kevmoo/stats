@@ -31,8 +31,8 @@ class ConfidenceInterval extends Stats<double> {
   final double tScore;
   final ConfidenceLevel confidenceLevel;
 
-  double get lowerBound => average - marginOfError;
-  double get upperBound => average + marginOfError;
+  double get lowerBound => mean - marginOfError;
+  double get upperBound => mean + marginOfError;
 
   /// Calculates the [ConfidenceInterval] for [data] given a [confidenceLevel].
   ///
@@ -63,7 +63,7 @@ class ConfidenceInterval extends Stats<double> {
       min: stats.min.toDouble(),
       max: stats.max.toDouble(),
       median: stats.median.toDouble(),
-      average: stats.average,
+      average: stats.mean,
       standardDeviation: stats.standardDeviation,
       marginOfError: marginOfError,
       tScore: tScore,

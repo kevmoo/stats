@@ -7,9 +7,14 @@ import 'util.dart';
 part 'light_stats.g.dart';
 
 @JsonSerializable()
+@Deprecated('Will be remove in the next major release.')
 class LightStats<T extends num> {
   final int count;
+
+  @Deprecated('Will be remove in the next major release. Use `mean` instead.')
   final double average;
+
+  double get mean => average;
 
   @JsonKey(fromJson: fromJsonGeneric, toJson: toJsonGeneric)
   final T min;
