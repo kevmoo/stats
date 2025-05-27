@@ -27,7 +27,7 @@ extension StatsExtensions<T extends num> on Iterable<T> {
   /// Returns the average (mean) of all values in `this`.
   ///
   /// `this` is only enumerated once.
-  num get average {
+  double get average {
     var count = 0;
     num runningSum = 0;
     for (var value in this) {

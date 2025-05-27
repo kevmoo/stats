@@ -7,13 +7,13 @@ part of 'stats.dart';
 // **************************************************************************
 
 Stats<T> _$StatsFromJson<T extends num>(Map<String, dynamic> json) => Stats<T>(
-      (json['count'] as num).toInt(),
-      json['average'] as num,
-      fromJsonGeneric(json['min'] as Object),
-      fromJsonGeneric(json['max'] as Object),
-      json['median'] as num,
-      json['standardDeviation'] as num,
-    );
+  (json['count'] as num).toInt(),
+  (json['average'] as num).toDouble(),
+  fromJsonGeneric(json['min'] as Object),
+  fromJsonGeneric(json['max'] as Object),
+  json['median'] as num,
+  (json['standardDeviation'] as num).toDouble(),
+);
 
 Map<String, dynamic> _$StatsToJson<T extends num>(Stats<T> instance) =>
     <String, dynamic>{

@@ -9,7 +9,7 @@ part 'light_stats.g.dart';
 @JsonSerializable()
 class LightStats<T extends num> {
   final int count;
-  final num average;
+  final double average;
 
   @JsonKey(fromJson: fromJsonGeneric, toJson: toJsonGeneric)
   final T min;
@@ -17,12 +17,13 @@ class LightStats<T extends num> {
   @JsonKey(fromJson: fromJsonGeneric, toJson: toJsonGeneric)
   final T max;
 
-  LightStats(
-    this.count,
-    this.average,
-    this.min,
-    this.max,
-  );
+  LightStats(this.count, this.average, this.min, this.max)
+    : assert(average >= min),
+      assert(average <= max),
+      assert(count > 0),
+      assert(average.isFinite),
+      assert(min.isFinite),
+      assert(max.isFinite);
 
   factory LightStats.fromData(Iterable<T> source) {
     num sum = 0;
@@ -84,12 +85,7 @@ class LightStats<T extends num> {
       return double.parse((input as double).toStringAsPrecision(precision));
     }
 
-    return LightStats(
-      count,
-      fix(average),
-      fix(min),
-      fix(max),
-    );
+    return LightStats(count, fix(average).toDouble(), fix(min), fix(max));
   }
 
   @override
