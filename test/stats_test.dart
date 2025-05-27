@@ -20,7 +20,7 @@ Stats _validateJson<T extends num>(
   }
 
   check(values.sum).equals(expectedSum);
-  check(stats.average).isCloseTo(values.average, 0.0000001);
+  check(stats.mean).isCloseTo(values.average, 0.0000001);
   check(stats.min).equals(values.min);
   check(stats.max).equals(values.max);
   return stats;

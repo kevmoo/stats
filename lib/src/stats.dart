@@ -9,6 +9,7 @@ part 'stats.g.dart';
 
 @JsonSerializable()
 class Stats<T extends num> extends LightStats<T> {
+  @Deprecated('Will be remove in the next major release.')
   final num median;
   final double standardDeviation;
 
@@ -100,7 +101,7 @@ class Stats<T extends num> extends LightStats<T> {
 
     return Stats(
       count,
-      fix(average).toDouble(),
+      fix(mean).toDouble(),
       fix(min),
       fix(max),
       fix(median),
