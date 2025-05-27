@@ -28,14 +28,12 @@ Stats _validateJson<T extends num>(
 void main() {
   test('empty source is not allowed', () {
     check(() => <num>[].stats).throws<ArgumentError>().which(
-          (it) =>
-              it.has((p0) => p0.message, 'message').equals('Cannot be empty.'),
-        );
+      (it) => it.has((p0) => p0.message, 'message').equals('Cannot be empty.'),
+    );
 
     check(() => <num>[].lightStats).throws<ArgumentError>().which(
-          (it) =>
-              it.has((p0) => p0.message, 'message').equals('Cannot be empty.'),
-        );
+      (it) => it.has((p0) => p0.message, 'message').equals('Cannot be empty.'),
+    );
   });
 
   group('empty', () {
@@ -89,69 +87,54 @@ void main() {
   });
 
   test('10 values', () {
-    _validateJson(
-      Iterable.generate(10, (i) => i),
-      45,
-      {
-        'count': 10,
-        'average': 4.5,
-        'min': 0,
-        'max': 9,
-        'median': 4.5,
-        'standardDeviation': 2.8722813232690143
-      },
-    );
+    _validateJson(Iterable.generate(10, (i) => i), 45, {
+      'count': 10,
+      'average': 4.5,
+      'min': 0,
+      'max': 9,
+      'median': 4.5,
+      'standardDeviation': 2.8722813232690143,
+    });
   });
 
   test('11 values', () {
-    _validateJson(
-      Iterable.generate(11, (i) => i),
-      55,
-      {
-        'count': 11,
-        'average': 5.0,
-        'min': 0,
-        'max': 10,
-        'median': 5,
-        'standardDeviation': 3.1622776601683795
-      },
-    );
+    _validateJson(Iterable.generate(11, (i) => i), 55, {
+      'count': 11,
+      'average': 5.0,
+      'min': 0,
+      'max': 10,
+      'median': 5,
+      'standardDeviation': 3.1622776601683795,
+    });
   });
 
   test('precision', () {
-    final stats = _validateJson(
-      Iterable.generate(100, math.sqrt),
-      661.4629471031477,
-      {
-        'count': 100,
-        'average': 6.614629471031477,
-        'median': 7.035533905932738,
-        'max': 9.9498743710662,
-        'min': 0.0,
-        'standardDeviation': 2.3972227599791047,
-      },
-    );
+    final stats =
+        _validateJson(Iterable.generate(100, math.sqrt), 661.4629471031477, {
+          'count': 100,
+          'average': 6.614629471031477,
+          'median': 7.035533905932738,
+          'max': 9.9498743710662,
+          'min': 0.0,
+          'standardDeviation': 2.3972227599791047,
+        });
 
-    check(stats.withPrecision(4).toJson()).deepEquals(
-      {
-        'count': 100,
-        'average': 6.615,
-        'median': 7.036,
-        'max': 9.95,
-        'min': 0.0,
-        'standardDeviation': 2.397,
-      },
-    );
+    check(stats.withPrecision(4).toJson()).deepEquals({
+      'count': 100,
+      'average': 6.615,
+      'median': 7.036,
+      'max': 9.95,
+      'min': 0.0,
+      'standardDeviation': 2.397,
+    });
 
-    check(stats.withPrecision(1).toJson()).deepEquals(
-      {
-        'count': 100,
-        'average': 7.0,
-        'median': 7.0,
-        'max': 10.0,
-        'min': 0.0,
-        'standardDeviation': 2.0,
-      },
-    );
+    check(stats.withPrecision(1).toJson()).deepEquals({
+      'count': 100,
+      'average': 7.0,
+      'median': 7.0,
+      'max': 10.0,
+      'min': 0.0,
+      'standardDeviation': 2.0,
+    });
   });
 }

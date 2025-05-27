@@ -10,7 +10,7 @@ part 'stats.g.dart';
 @JsonSerializable()
 class Stats<T extends num> extends LightStats<T> {
   final num median;
-  final num standardDeviation;
+  final double standardDeviation;
 
   Stats(
     super.count,
@@ -19,7 +19,11 @@ class Stats<T extends num> extends LightStats<T> {
     super.max,
     this.median,
     this.standardDeviation,
-  );
+  ) : assert(median.isFinite),
+      assert(min <= median),
+      assert(median <= max),
+      assert(standardDeviation.isFinite),
+      assert(standardDeviation >= 0);
 
   /// Note: the implementation creates a [List] from [source] and sorts it.
   /// For large inputs, this can be memory intensive and/or slow.
@@ -70,7 +74,7 @@ class Stats<T extends num> extends LightStats<T> {
     return Stats(count, average, min, max, median, standardDeviation);
   }
 
-  num get standardError => standardDeviation / math.sqrt(count);
+  double get standardError => standardDeviation / math.sqrt(count);
 
   @override
   Stats withPrecision(int precision) {
@@ -84,11 +88,11 @@ class Stats<T extends num> extends LightStats<T> {
 
     return Stats(
       count,
-      fix(average),
+      fix(average).toDouble(),
       fix(min),
       fix(max),
       fix(median),
-      fix(standardDeviation),
+      fix(standardDeviation).toDouble(),
     );
   }
 

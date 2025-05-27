@@ -6,7 +6,7 @@ version: 2.1.1-wip
 repository: https://github.com/kevmoo/stats
 
 environment:
-  sdk: ^3.4.0
+  sdk: ^3.7.0
 
 dependencies:
   json_annotation: ^4.8.1

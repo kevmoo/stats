@@ -1,6 +1,9 @@
-## 2.1.1-wip
+## 2.2.0-wip
 
-- Require at least Dart 3.4
+- Require at least Dart 3.7
+- Added `assert` calls to `LightStats` and `Stats` constructors.
+- Changed the type of `LightStats.average` and `Stats.standardDeviation` to 
+  double.
 
 ## 2.1.0
 
