@@ -11,12 +11,11 @@ void main() {
   final stats = Stats.fromData(input);
   print(stats.withPrecision(3));
   // {
-  //  "count": 8,
-  //  "average": 4.5,
-  //  "min": 1,
-  //  "max": 8,
-  //  "median": 4.5,
-  //  "standardDeviation": 2.29
+  //   "standardDeviation": 2.29,
+  //   "min": 1,
+  //   "max": 8,
+  //   "count": 8,
+  //   "mean": 4.5
   // }
 }
 ```

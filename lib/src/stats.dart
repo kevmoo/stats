@@ -2,34 +2,29 @@ import 'dart:math' as math;
 
 import 'package:json_annotation/json_annotation.dart';
 
-import 'light_stats.dart';
 import 'util.dart';
 
 part 'stats.g.dart';
 
 @JsonSerializable()
-class Stats<T extends num> extends LightStats<T> {
-  @Deprecated('Will be remove in the next major release.')
-  final num median;
+class Stats<T extends num> {
+  Stats(this.count, this.mean, this.min, this.max, this.standardDeviation)
+    : assert(standardDeviation.isFinite),
+      assert(standardDeviation >= 0),
+      assert(mean >= min),
+      assert(mean <= max),
+      assert(count > 0),
+      assert(mean.isFinite),
+      assert(min.isFinite),
+      assert(max.isFinite);
+
   final double standardDeviation;
 
-  Stats(
-    super.count,
-    super.average,
-    super.min,
-    super.max,
-    this.median,
-    this.standardDeviation,
-  ) : assert(median.isFinite),
-      assert(min <= median),
-      assert(median <= max),
-      assert(standardDeviation.isFinite),
-      assert(standardDeviation >= 0);
+  @JsonKey(fromJson: fromJsonGeneric, toJson: toJsonGeneric)
+  final T min, max;
+  final int count;
+  final double mean;
 
-  /// Note: the implementation creates a [List] from [source] and sorts it.
-  /// For large inputs, this can be memory intensive and/or slow.
-  /// Consider using [LightStats] for large, unsorted inputs.
-  ///
   /// If [besselCorrection] is `true`, the use `source.length - 1` to calculate
   /// the variance. This is important for calculating confidence.
   factory Stats.fromData(Iterable<T> source, {bool besselCorrection = false}) {
@@ -84,12 +79,11 @@ class Stats<T extends num> extends LightStats<T> {
       median = (source[middleIndex - 1] + median) / 2.0;
     }
 
-    return Stats(count, mean, min, max, median, standardDeviation);
+    return Stats(count, mean, min, max, standardDeviation);
   }
 
   double get standardError => standardDeviation / math.sqrt(count);
 
-  @override
   Stats withPrecision(int precision) {
     num fix(num input) {
       if (input is int) {
@@ -104,13 +98,11 @@ class Stats<T extends num> extends LightStats<T> {
       fix(mean).toDouble(),
       fix(min),
       fix(max),
-      fix(median),
       fix(standardDeviation).toDouble(),
     );
   }
 
   factory Stats.fromJson(Map<String, dynamic> json) => _$StatsFromJson(json);
 
-  @override
   Map<String, dynamic> toJson() => _$StatsToJson(this);
 }

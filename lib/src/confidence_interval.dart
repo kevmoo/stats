@@ -12,17 +12,16 @@ part 'confidence_interval.g.dart';
 class ConfidenceInterval extends Stats<double> {
   ConfidenceInterval({
     required int count,
-    required double average,
+    required double mean,
     required double standardDeviation,
     required double min,
     required double max,
-    required double median,
     required this.marginOfError,
     required this.tScore,
     required this.confidenceLevel,
   }) : assert(marginOfError >= 0),
        assert(marginOfError.isFinite),
-       super(count, average, min, max, median, standardDeviation);
+       super(count, mean, min, max, standardDeviation);
 
   factory ConfidenceInterval.fromJson(Map<String, dynamic> json) =>
       _$ConfidenceIntervalFromJson(json);
@@ -62,8 +61,7 @@ class ConfidenceInterval extends Stats<double> {
       count: length,
       min: stats.min.toDouble(),
       max: stats.max.toDouble(),
-      median: stats.median.toDouble(),
-      average: stats.mean,
+      mean: stats.mean,
       standardDeviation: stats.standardDeviation,
       marginOfError: marginOfError,
       tScore: tScore,
@@ -76,7 +74,7 @@ class ConfidenceInterval extends Stats<double> {
 
   @override
   String toString() => '''
-Mean: ${average.toStringAsFixed(_toStringPrecision)}
+Mean: ${mean.toStringAsFixed(_toStringPrecision)}
 Standard Deviation: ${standardDeviation.toStringAsFixed(_toStringPrecision)}
 Confidence Level: ${(confidenceLevel.value * 100).toStringAsFixed(0)}%
 Margin of Error: ${marginOfError.toStringAsFixed(_toStringPrecision)}

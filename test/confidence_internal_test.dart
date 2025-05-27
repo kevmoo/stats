@@ -12,10 +12,9 @@ void main() {
 
     final shared = {
       'count': 5,
-      'average': 3.0,
+      'mean': 3.0,
       'min': 1.0,
       'max': 5.0,
-      'median': 3.0,
       'standardDeviation': closeTo(1.58113883, threshold),
     };
 
@@ -61,10 +60,9 @@ void main() {
 
     final shared = {
       'count': 101,
-      'average': 0,
+      'mean': 0,
       'min': -50,
       'max': 50,
-      'median': 0,
       'standardDeviation': closeTo(29.3002, threshold),
     };
 
@@ -112,10 +110,9 @@ void main() {
 
     final shared = {
       'count': bigNumber,
-      'average': closeTo(0, threshold),
+      'mean': closeTo(0, threshold),
       'min': closeTo(-0.5, threshold),
       'max': closeTo(0.5, threshold),
-      'median': closeTo(0, threshold),
       'standardDeviation': closeTo(0.2891081112663565, threshold),
     };
 

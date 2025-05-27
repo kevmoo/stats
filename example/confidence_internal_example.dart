@@ -55,7 +55,7 @@ void main() {
       'The confidence intervals DO NOT OVERLAP. '
       'This suggests a statistically significant difference.',
     );
-    if (ciOld.average > ciNew.average) {
+    if (ciOld.mean > ciNew.mean) {
       print('The New Version is statistically significantly faster/better.');
     } else {
       print('The Old Version is statistically significantly faster/better.');
