@@ -5,9 +5,6 @@ import '../stats.dart';
 extension StatsExtensions<T extends num> on Iterable<T> {
   Stats<T> get stats => Stats<T>.fromData(this);
 
-  @Deprecated('Will be remove in the next major release.')
-  LightStats<T> get lightStats => LightStats<T>.fromData(this);
-
   ConfidenceInterval confidenceInterval(ConfidenceLevel confidenceLevel) =>
       ConfidenceInterval.calculate(cast<num>(), confidenceLevel);
 
@@ -27,11 +24,10 @@ extension StatsExtensions<T extends num> on Iterable<T> {
     return runningSum as T;
   }
 
-  /// Returns the average (mean) of all values in `this`.
+  /// Returns the mean (average) of all values in `this`.
   ///
   /// `this` is only enumerated once.
-  @Deprecated('Will be remove in the next major release. Use `mean` instead.')
-  double get average {
+  double get mean {
     var count = 0;
     num runningSum = 0;
     for (var value in this) {
@@ -47,6 +43,4 @@ extension StatsExtensions<T extends num> on Iterable<T> {
 
     return runningSum / count;
   }
-
-  double get mean => average;
 }

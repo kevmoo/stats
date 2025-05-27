@@ -1,3 +1,10 @@
+## 3.0.0-wip
+
+- Removed all deprecated members:
+  - Removed `LightStats`.
+  - `average` renamed to `mean`.
+  - Removed `median` everywhere.
+
 ## 2.2.0
 
 - Added confidence internal logic:

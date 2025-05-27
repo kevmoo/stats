@@ -9,11 +9,10 @@ part of 'confidence_interval.dart';
 ConfidenceInterval _$ConfidenceIntervalFromJson(Map<String, dynamic> json) =>
     ConfidenceInterval(
       count: (json['count'] as num).toInt(),
-      average: (json['average'] as num).toDouble(),
+      mean: (json['mean'] as num).toDouble(),
       standardDeviation: (json['standardDeviation'] as num).toDouble(),
       min: fromJsonGeneric(json['min'] as Object),
       max: fromJsonGeneric(json['max'] as Object),
-      median: (json['median'] as num).toDouble(),
       marginOfError: (json['marginOfError'] as num).toDouble(),
       tScore: (json['tScore'] as num).toDouble(),
       confidenceLevel: $enumDecode(
@@ -24,12 +23,11 @@ ConfidenceInterval _$ConfidenceIntervalFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ConfidenceIntervalToJson(ConfidenceInterval instance) =>
     <String, dynamic>{
-      'count': instance.count,
-      'average': instance.average,
+      'standardDeviation': instance.standardDeviation,
       'min': toJsonGeneric(instance.min),
       'max': toJsonGeneric(instance.max),
-      'median': instance.median,
-      'standardDeviation': instance.standardDeviation,
+      'count': instance.count,
+      'mean': instance.mean,
       'marginOfError': instance.marginOfError,
       'tScore': instance.tScore,
       'confidenceLevel': _$ConfidenceLevelEnumMap[instance.confidenceLevel]!,
