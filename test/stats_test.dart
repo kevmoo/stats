@@ -15,11 +15,12 @@ Stats _validateJson<T extends num>(
 
   final lightStats = values.lightStats;
   for (var entry in lightStats.toJson().entries) {
-    check(expectedJson)[entry.key].equals(entry.value);
+    check(expectedJson)[entry
+        .key].isA<num>().isCloseTo(entry.value as num, 0.0000001);
   }
 
   check(values.sum).equals(expectedSum);
-  check(stats.average).equals(values.average);
+  check(stats.average).isCloseTo(values.average, 0.0000001);
   check(stats.min).equals(values.min);
   check(stats.max).equals(values.max);
   return stats;
@@ -112,11 +113,11 @@ void main() {
     final stats =
         _validateJson(Iterable.generate(100, math.sqrt), 661.4629471031477, {
           'count': 100,
-          'average': 6.614629471031477,
+          'average': 6.614629471031478,
           'median': 7.035533905932738,
           'max': 9.9498743710662,
           'min': 0.0,
-          'standardDeviation': 2.3972227599791047,
+          'standardDeviation': 2.3972227599791043,
         });
 
     check(stats.withPrecision(4).toJson()).deepEquals({

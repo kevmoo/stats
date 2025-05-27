@@ -56,30 +56,24 @@ class Stats<T extends num> extends LightStats<T> {
       );
     }
 
-    final count = source.length;
     final min = source.first;
     final max = source.last;
 
-    num sum = 0;
-    for (var value in source) {
-      sum += value;
-    }
+    var count = 0;
+    var mean = 0.0;
+    var m2 = 0.0;
 
-    final average = sum / count;
-
-    // variance
-    // The average of the squared difference from the Mean
-    num sumOfSquaredDiffFromMean = 0;
     for (var value in source) {
-      final squareDiffFromMean = math.pow(value - average, 2);
-      sumOfSquaredDiffFromMean += squareDiffFromMean;
+      count++;
+      final delta = value - mean;
+      mean += delta / count;
+      final delta2 = value - mean; // Use the new mean for delta2
+      m2 += delta * delta2;
     }
 
     final variance =
-        sumOfSquaredDiffFromMean /
-        (besselCorrection ? (count - 1) : count); // Bessel's correction;
+        m2 / (besselCorrection ? (count - 1) : count); // Bessel's correction;
 
-    // standardDeviation: sqrt of the variance
     final standardDeviation = math.sqrt(variance);
 
     final middleIndex = count ~/ 2;
@@ -89,7 +83,7 @@ class Stats<T extends num> extends LightStats<T> {
       median = (source[middleIndex - 1] + median) / 2.0;
     }
 
-    return Stats(count, average, min, max, median, standardDeviation);
+    return Stats(count, mean, min, max, median, standardDeviation);
   }
 
   double get standardError => standardDeviation / math.sqrt(count);
