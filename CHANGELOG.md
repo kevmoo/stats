@@ -1,9 +1,13 @@
 ## 2.2.0-wip
 
-- Require at least Dart 3.7
+- Added confidence internal logic:
+  - `ConfidenceInterval` class and `ConfidenceLevel` enum.
+  - Added `confidenceInterval` extension to `Iterable<num>`. 
+- `Stats`: added `besselCorrection` optional parameter to constructors.
 - Added `assert` calls to `LightStats` and `Stats` constructors.
 - Changed the type of `LightStats.average` and `Stats.standardDeviation` to 
-  double.
+  `double`.
+- Require at least Dart 3.7
 
 ## 2.1.0
 
