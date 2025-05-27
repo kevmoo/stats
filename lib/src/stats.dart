@@ -27,17 +27,33 @@ class Stats<T extends num> extends LightStats<T> {
 
   /// Note: the implementation creates a [List] from [source] and sorts it.
   /// For large inputs, this can be memory intensive and/or slow.
-  /// Consider using [LightStats] for large inputs.
-  factory Stats.fromData(Iterable<T> source) {
+  /// Consider using [LightStats] for large, unsorted inputs.
+  ///
+  /// If [besselCorrection] is `true`, the use `source.length - 1` to calculate
+  /// the variance. This is important for calculating confidence.
+  factory Stats.fromData(Iterable<T> source, {bool besselCorrection = false}) {
     final list = source.toList()..sort();
-    return Stats.fromSortedList(list);
+    return Stats.fromSortedList(list, besselCorrection: besselCorrection);
   }
 
   /// [source] must be sorted (lowest value first) or the output will be
   /// inaccurate.
-  factory Stats.fromSortedList(List<T> source) {
+  ///
+  /// If [besselCorrection] is `true`, the use `source.length - 1` to calculate
+  /// the variance. This is important for calculating confidence.
+  factory Stats.fromSortedList(
+    List<T> source, {
+    bool besselCorrection = false,
+  }) {
     if (source.isEmpty) {
       throw ArgumentError.value(source, 'source', 'Cannot be empty.');
+    }
+    if (besselCorrection && source.length < 2) {
+      throw ArgumentError.value(
+        source,
+        'source',
+        'Must have at least two elements if besselCorrection is true.',
+      );
     }
 
     final count = source.length;
@@ -59,7 +75,9 @@ class Stats<T extends num> extends LightStats<T> {
       sumOfSquaredDiffFromMean += squareDiffFromMean;
     }
 
-    final variance = sumOfSquaredDiffFromMean / count;
+    final variance =
+        sumOfSquaredDiffFromMean /
+        (besselCorrection ? (count - 1) : count); // Bessel's correction;
 
     // standardDeviation: sqrt of the variance
     final standardDeviation = math.sqrt(variance);
