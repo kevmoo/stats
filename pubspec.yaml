@@ -2,7 +2,7 @@ name: stats
 description: >-
   Calculate common statistical values for a set of numbers: max, min, mean,
   median, standard deviation, and standard error.
-version: 3.0.0-wip
+version: 3.0.0
 repository: https://github.com/kevmoo/stats
 
 environment:

@@ -4,9 +4,9 @@ import 'package:checks/checks.dart';
 import 'package:stats/stats.dart';
 import 'package:test/scaffolding.dart';
 
-Stats _validateJson<T extends num>(
-  Iterable<T> values,
-  T expectedSum,
+Stats _validateJson(
+  Iterable<num> values,
+  num expectedSum,
   Map<String, dynamic> expectedJson,
 ) {
   final stats = values.stats;
@@ -51,7 +51,7 @@ void main() {
     _validateJson(
       [0],
       0,
-      {'count': 1, 'mean': 0.0, 'max': 0, 'min': 0, 'standardDeviation': 0.0},
+      {'count': 1, 'mean': 0.0, 'max': 0, 'min': 0, 'sumOfSquares': 0.0},
     );
   });
 
@@ -59,7 +59,7 @@ void main() {
     _validateJson(
       [0, 2],
       2,
-      {'count': 2, 'mean': 1.0, 'min': 0, 'max': 2, 'standardDeviation': 1.0},
+      {'count': 2, 'mean': 1.0, 'min': 0, 'max': 2, 'sumOfSquares': 2.0},
     );
   });
 
@@ -69,7 +69,7 @@ void main() {
       'mean': 4.5,
       'min': 0,
       'max': 9,
-      'standardDeviation': 2.8722813232690143,
+      'sumOfSquares': 82.5,
     });
   });
 
@@ -79,7 +79,7 @@ void main() {
       'mean': 5.0,
       'min': 0,
       'max': 10,
-      'standardDeviation': 3.1622776601683795,
+      'sumOfSquares': 110.0,
     });
   });
 
@@ -90,7 +90,7 @@ void main() {
           'mean': 6.614629471031478,
           'max': 9.9498743710662,
           'min': 0.0,
-          'standardDeviation': 2.3972227599791043,
+          'sumOfSquares': 574.6676960961834,
         });
 
     check(stats.withPrecision(4).toJson()).deepEquals({
@@ -98,7 +98,7 @@ void main() {
       'mean': 6.615,
       'max': 9.95,
       'min': 0.0,
-      'standardDeviation': 2.397,
+      'sumOfSquares': 574.7,
     });
 
     check(stats.withPrecision(1).toJson()).deepEquals({
@@ -106,7 +106,7 @@ void main() {
       'mean': 7.0,
       'max': 10.0,
       'min': 0.0,
-      'standardDeviation': 2.0,
+      'sumOfSquares': 600.0,
     });
   });
 }

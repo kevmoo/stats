@@ -3,10 +3,10 @@ import 'dart:math' as math;
 import '../stats.dart';
 
 extension StatsExtensions<T extends num> on Iterable<T> {
-  Stats<T> get stats => Stats<T>.fromData(this);
+  Stats get stats => Stats.fromData(this);
 
   ConfidenceInterval confidenceInterval(ConfidenceLevel confidenceLevel) =>
-      ConfidenceInterval.calculate(cast<num>(), confidenceLevel);
+      ConfidenceInterval.calculate(stats, confidenceLevel);
 
   /// Returns the maximum of all values in `this`.
   T get max => reduce(math.max);

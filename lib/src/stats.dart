@@ -1,108 +1,119 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:json_annotation/json_annotation.dart';
 
-import 'util.dart';
+import 'stats_sinks.dart';
 
 part 'stats.g.dart';
 
 @JsonSerializable()
-class Stats<T extends num> {
-  Stats(this.count, this.mean, this.min, this.max, this.standardDeviation)
-    : assert(standardDeviation.isFinite),
-      assert(standardDeviation >= 0),
-      assert(mean >= min),
-      assert(mean <= max),
-      assert(count > 0),
-      assert(mean.isFinite),
-      assert(min.isFinite),
-      assert(max.isFinite);
+/// Represents important statistical values of a collection of numbers.
+class Stats {
+  Stats({
+    required this.count,
+    required this.mean,
+    required this.min,
+    required this.max,
+    required this.sumOfSquares,
+  }) : assert(count > 0),
+       assert(sumOfSquares.isFinite),
+       assert(sumOfSquares >= 0),
+       assert(mean >= min),
+       assert(mean <= max),
+       assert(mean.isFinite),
+       assert(min.isFinite),
+       assert(max.isFinite);
 
-  final double standardDeviation;
-
-  @JsonKey(fromJson: fromJsonGeneric, toJson: toJsonGeneric)
-  final T min, max;
+  /// The number of items in the source collection.
   final int count;
+
+  /// The minimum value in the source collection.
+  final num min;
+
+  /// The maximum value in the source collection.
+  final num max;
+
+  /// The mean (average) value in the source collection.
   final double mean;
 
-  /// If [besselCorrection] is `true`, the use `source.length - 1` to calculate
-  /// the variance. This is important for calculating confidence.
-  factory Stats.fromData(Iterable<T> source, {bool besselCorrection = false}) {
-    final list = source.toList()..sort();
-    return Stats.fromSortedList(list, besselCorrection: besselCorrection);
-  }
-
-  /// [source] must be sorted (lowest value first) or the output will be
-  /// inaccurate.
+  /// The sum of all of each value in the source collection squared.
   ///
-  /// If [besselCorrection] is `true`, the use `source.length - 1` to calculate
-  /// the variance. This is important for calculating confidence.
-  factory Stats.fromSortedList(
-    List<T> source, {
-    bool besselCorrection = false,
-  }) {
-    if (source.isEmpty) {
-      throw ArgumentError.value(source, 'source', 'Cannot be empty.');
+  /// Important for many other statistical calculations.
+  final double sumOfSquares;
+
+  /// Represents three typical statistical values related to [Stats].
+  ///
+  /// * `variance` is [Stats.sumOfSquares]`/`[Stats.count].
+  /// * `standardDeviation` is the square-root of `variance`.
+  /// * `standardError` is `standardDeviation` divided by the square-root of
+  ///   `count`.
+  ({double variance, double standardDeviation, double standardError})
+  get populationValues => _values(population: true);
+
+  /// Represents three typical statistical values related to [Stats].
+  ///
+  /// * `variance` is [Stats.sumOfSquares]`/(`[Stats.count]`-1)`.
+  /// * `standardDeviation` is the square-root of `variance`.
+  /// * `standardError` is `standardDeviation` divided by the square-root of
+  ///   `count`.
+  ({double variance, double standardDeviation, double standardError})
+  get sampleValues => _values(population: false);
+
+  /// Assumes all values in [source] are [num.isFinite].
+  factory Stats.fromData(Iterable<num> source) {
+    final state = StatsSink();
+    for (final value in source) {
+      state.add(value);
     }
-    if (besselCorrection && source.length < 2) {
-      throw ArgumentError.value(
-        source,
-        'source',
-        'Must have at least two elements if besselCorrection is true.',
-      );
-    }
-
-    final min = source.first;
-    final max = source.last;
-
-    var count = 0;
-    var mean = 0.0;
-    var m2 = 0.0;
-
-    for (var value in source) {
-      count++;
-      final delta = value - mean;
-      mean += delta / count;
-      final delta2 = value - mean; // Use the new mean for delta2
-      m2 += delta * delta2;
-    }
-
-    final variance =
-        m2 / (besselCorrection ? (count - 1) : count); // Bessel's correction;
-
-    final standardDeviation = math.sqrt(variance);
-
-    final middleIndex = count ~/ 2;
-    num median = source[middleIndex];
-    // if length is even, average the "middle" values
-    if (count.isEven) {
-      median = (source[middleIndex - 1] + median) / 2.0;
-    }
-
-    return Stats(count, mean, min, max, standardDeviation);
+    return state.emit();
   }
 
-  double get standardError => standardDeviation / math.sqrt(count);
+  /// Assumes all values in [source] are [num.isFinite].
+  static Future<Stats> fromStream(Stream<num> source) async {
+    final state = StatsSink();
+    await for (final value in source) {
+      state.add(value);
+    }
+    return state.emit();
+  }
+
+  static const Converter<num, Stats> transformer = StatsConverter();
 
   Stats withPrecision(int precision) {
-    num fix(num input) {
-      if (input is int) {
-        return input;
-      }
+    double fixDouble(double input) =>
+        double.parse(input.toStringAsPrecision(precision));
 
-      return double.parse((input as double).toStringAsPrecision(precision));
-    }
+    num fix(num input) => input is int ? input : fixDouble(input as double);
 
     return Stats(
-      count,
-      fix(mean).toDouble(),
-      fix(min),
-      fix(max),
-      fix(standardDeviation).toDouble(),
+      count: count,
+      mean: fixDouble(mean),
+      min: fix(min),
+      max: fix(max),
+      sumOfSquares: fixDouble(sumOfSquares),
     );
   }
 
   factory Stats.fromJson(Map<String, dynamic> json) => _$StatsFromJson(json);
 
   Map<String, dynamic> toJson() => _$StatsToJson(this);
+
+  ({double variance, double standardDeviation, double standardError}) _values({
+    required bool population,
+  }) {
+    final variance =
+        population
+            ? sumOfSquares / count
+            : count == 1
+            ? double.nan
+            : sumOfSquares / (count - 1);
+    final standardDeviation = math.sqrt(variance);
+    return (
+      variance: variance,
+      standardDeviation: standardDeviation,
+      standardError: standardDeviation / math.sqrt(count),
+    );
+  }
 }
