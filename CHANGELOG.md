@@ -1,9 +1,15 @@
-## 3.0.0-wip
+## 3.0.0
 
 - Removed all deprecated members:
   - Removed `LightStats`.
   - `average` renamed to `mean`.
   - Removed `median` everywhere.
+- `Stats`: Replaced `standardDeviation` with `sumOfSquares`
+- `Stats`: removed type parameter. Added more complexity than it was worth.
+- `ConfidenceInterval` now builds *from* a `Stats` instance 
+  instead of extending it.
+- `Stats` can now be calculated from a `Stream<num>`.
+- `Stats.transformer` allows calculating updated stats *on the fly*.
 
 ## 2.2.0
 

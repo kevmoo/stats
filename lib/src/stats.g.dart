@@ -6,19 +6,18 @@ part of 'stats.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Stats<T> _$StatsFromJson<T extends num>(Map<String, dynamic> json) => Stats<T>(
-  (json['count'] as num).toInt(),
-  (json['mean'] as num).toDouble(),
-  fromJsonGeneric(json['min'] as Object),
-  fromJsonGeneric(json['max'] as Object),
-  (json['standardDeviation'] as num).toDouble(),
+Stats _$StatsFromJson(Map<String, dynamic> json) => Stats(
+  count: (json['count'] as num).toInt(),
+  mean: (json['mean'] as num).toDouble(),
+  min: json['min'] as num,
+  max: json['max'] as num,
+  sumOfSquares: (json['sumOfSquares'] as num).toDouble(),
 );
 
-Map<String, dynamic> _$StatsToJson<T extends num>(Stats<T> instance) =>
-    <String, dynamic>{
-      'standardDeviation': instance.standardDeviation,
-      'min': toJsonGeneric(instance.min),
-      'max': toJsonGeneric(instance.max),
-      'count': instance.count,
-      'mean': instance.mean,
-    };
+Map<String, dynamic> _$StatsToJson(Stats instance) => <String, dynamic>{
+  'count': instance.count,
+  'min': instance.min,
+  'max': instance.max,
+  'mean': instance.mean,
+  'sumOfSquares': instance.sumOfSquares,
+};
