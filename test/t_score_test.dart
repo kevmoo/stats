@@ -1,7 +1,7 @@
 import 'package:checks/checks.dart';
 import 'package:stats/src/confidence_level.dart';
 import 'package:stats/src/t_score.dart';
-import 'package:test/test.dart' show group, test;
+import 'package:test/scaffolding.dart';
 
 void main() {
   group('t-scores for confidence levels', () {
