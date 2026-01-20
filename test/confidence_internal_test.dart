@@ -145,9 +145,7 @@ void main() {
             actual['marginOfError'],
           ).isA<num>().isCloseTo(expectedValue.marginOfError, threshold);
 
-          check(
-            actual['tScore'],
-          ).isA<num>().equals(expectedValue.tScore);
+          check(actual['tScore']).isA<num>().equals(expectedValue.tScore);
 
           check(
             actual['confidenceLevel'],
