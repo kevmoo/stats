@@ -1,3 +1,9 @@
+## 3.0.1-wip
+
+- Fixed a bug where streams transformed with `Stats.transformer` would not close
+  properly.
+- Clarified documentation for `Stats.sumOfSquares`.
+
 ## 3.0.0
 
 - Removed all deprecated members:
@@ -6,7 +12,7 @@
   - Removed `median` everywhere.
 - `Stats`: Replaced `standardDeviation` with `sumOfSquares`
 - `Stats`: removed type parameter. Added more complexity than it was worth.
-- `ConfidenceInterval` now builds *from* a `Stats` instance 
+- `ConfidenceInterval` now builds *from* a `Stats` instance
   instead of extending it.
 - `Stats` can now be calculated from a `Stream<num>`.
 - `Stats.transformer` allows calculating updated stats *on the fly*.
@@ -15,10 +21,10 @@
 
 - Added confidence internal logic:
   - `ConfidenceInterval` class and `ConfidenceLevel` enum.
-  - Added `confidenceInterval` extension to `Iterable<num>`. 
+  - Added `confidenceInterval` extension to `Iterable<num>`.
 - `Stats`: added `besselCorrection` optional parameter to constructors.
 - Added `assert` calls to `LightStats` and `Stats` constructors.
-- Changed the type of `LightStats.average` and `Stats.standardDeviation` to 
+- Changed the type of `LightStats.average` and `Stats.standardDeviation` to
   `double`.
 - Deprecations:
   - `LightStats` will be removed.

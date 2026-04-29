@@ -109,4 +109,45 @@ void main() {
       'sumOfSquares': 600.0,
     });
   });
+
+  test('fromStream', () async {
+    final stream = Stream<num>.fromIterable([1, 2, 3, 4, 5]);
+    final stats = await Stats.fromStream(stream);
+    check(stats.toJson()).deepEquals({
+      'count': 5,
+      'mean': 3.0,
+      'min': 1,
+      'max': 5,
+      'sumOfSquares': 10.0,
+    });
+  });
+
+  test('StatsConverter', () async {
+    final stream = Stream<num>.fromIterable([1, 2, 3]);
+    final transformed = stream.transform(Stats.transformer);
+    final results = await transformed.toList();
+
+    check(results).length.equals(3);
+    check(results[0].toJson()).deepEquals({
+      'count': 1,
+      'mean': 1.0,
+      'min': 1,
+      'max': 1,
+      'sumOfSquares': 0.0,
+    });
+    check(results[1].toJson()).deepEquals({
+      'count': 2,
+      'mean': 1.5,
+      'min': 1,
+      'max': 2,
+      'sumOfSquares': 0.5,
+    });
+    check(results[2].toJson()).deepEquals({
+      'count': 3,
+      'mean': 2.0,
+      'min': 1,
+      'max': 3,
+      'sumOfSquares': 2.0,
+    });
+  });
 }

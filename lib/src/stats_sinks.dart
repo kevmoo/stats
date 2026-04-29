@@ -29,8 +29,10 @@ final class ChunkedSink extends StatsSink {
 
   @override
   void close() {
+    if (_closed) return;
     super.close();
     _closed = true;
+    _target.close();
   }
 }
 

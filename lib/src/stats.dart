@@ -38,7 +38,7 @@ class Stats {
   /// The mean (average) value in the source collection.
   final double mean;
 
-  /// The sum of all of each value in the source collection squared.
+  /// The sum of squared deviations from the mean.
   ///
   /// Important for many other statistical calculations.
   final double sumOfSquares;
