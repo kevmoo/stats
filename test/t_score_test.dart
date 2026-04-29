@@ -66,10 +66,10 @@ void main() {
   });
 
   group('Interpolation', () {
-    test('should interpolate for percent95, df=17 (between 16 and 18)', () {
+    test('should interpolate for percent95, df=21 (between 20 and 29)', () {
       check(
-        calcTScore(17, ConfidenceLevel.percent95),
-      ).isCloseTo(2.11, 0.000001);
+        calcTScore(21, ConfidenceLevel.percent95),
+      ).isCloseTo(2.081444, 0.000001);
     });
 
     test('should interpolate for percent90, df=25 (between 20 and 29)', () {
