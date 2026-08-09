@@ -4,9 +4,9 @@
 
 Supports:
 
-- `Stats`: Typical statistical values over a `List` or `Stream` of `num`: 
+- `Stats`: Typical statistical values over a `List` or `Stream` of `num`:
   `count`, `min`, `max`, `mean`, `sumOfSquares`
-- `ConfidenceInterval` over `Stats` with a given confidence level. 
+- `ConfidenceInterval` over `Stats` with a given confidence level.
 
 ```dart
 import 'dart:convert';

@@ -12,10 +12,10 @@
   - Removed `median` everywhere.
 - `Stats`: Replaced `standardDeviation` with `sumOfSquares`
 - `Stats`: removed type parameter. Added more complexity than it was worth.
-- `ConfidenceInterval` now builds *from* a `Stats` instance
-  instead of extending it.
+- `ConfidenceInterval` now builds _from_ a `Stats` instance instead of extending
+  it.
 - `Stats` can now be calculated from a `Stream<num>`.
-- `Stats.transformer` allows calculating updated stats *on the fly*.
+- `Stats.transformer` allows calculating updated stats _on the fly_.
 
 ## 2.2.0
 
@@ -56,8 +56,7 @@
   - Now has a type argument `<T extends num>`.
   - implements `LightStats`.
   - Added `fromSortedList` factory.
-  - `standardError` is now an on-demand calculated property instead of a
-    field.
+  - `standardError` is now an on-demand calculated property instead of a field.
   - Renamed `mean` to `average`.
 - Added `Iterable<num>` extensions: `lightStats`, `stats`, `min`, `max`, `sum`
   and `average`.
