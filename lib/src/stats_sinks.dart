@@ -9,11 +9,11 @@ final class StatsConverter extends Converter<num, Stats> {
   Stats convert(num input) => Stats.fromData([input]);
 
   @override
-  Sink<num> startChunkedConversion(Sink<Stats> sink) => ChunkedSink(sink);
+  Sink<num> startChunkedConversion(Sink<Stats> sink) => _ChunkedSink(sink);
 }
 
-final class ChunkedSink extends StatsSink {
-  ChunkedSink(this._target);
+final class _ChunkedSink extends StatsSink {
+  _ChunkedSink(this._target);
 
   final Sink<Stats> _target;
   bool _closed = false;
