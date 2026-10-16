@@ -16,9 +16,8 @@ void main() async {
 
   unawaited(Future.microtask(addRandomValue));
 
-  await for (var stats in controller.stream
-      .transform(Stats.transformer)
-      .take(1000)) {
+  await for (var stats
+      in controller.stream.transform(Stats.transformer).take(1000)) {
     if (stats.count > 1) {
       final confidence = ConfidenceInterval.calculate(
         stats,

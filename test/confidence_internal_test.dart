@@ -2,8 +2,11 @@ import 'package:checks/checks.dart';
 import 'package:stats/stats.dart';
 import 'package:test/scaffolding.dart';
 
-typedef ExpectedValues =
-    ({double marginOfError, double tScore, String confidenceLevel});
+typedef ExpectedValues = ({
+  double marginOfError,
+  double tScore,
+  String confidenceLevel,
+});
 
 void main() {
   // Used https://www.statskingdom.com/confidence-interval-calculator.html
