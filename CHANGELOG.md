@@ -3,6 +3,7 @@
 - Fixed a bug where streams transformed with `Stats.transformer` would not close
   properly.
 - Clarified documentation for `Stats.sumOfSquares`.
+- Require at least Dart 3.12
 
 ## 3.0.0
 

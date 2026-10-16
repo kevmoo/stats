@@ -1,5 +1,5 @@
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.12.0
 package:stats/stats.dart:
   ConfidenceInterval (class extends Object):
     calculate (static method: ConfidenceInterval Function(Stats, ConfidenceLevel))
