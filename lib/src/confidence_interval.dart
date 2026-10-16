@@ -58,7 +58,8 @@ class ConfidenceInterval {
   Map<String, dynamic> toJson() => _$ConfidenceIntervalToJson(this);
 
   @override
-  String toString() => '''
+  String toString() =>
+      '''
 Confidence Level: ${(confidenceLevel.value * 100).toStringAsFixed(0)}%
 Margin of Error: ${marginOfError.toStringAsFixed(_toStringPrecision)}
 Confidence Interval: [${lowerBound.toStringAsFixed(_toStringPrecision)}, ${upperBound.toStringAsFixed(_toStringPrecision)}]''';

@@ -6,12 +6,13 @@ version: 3.0.1-wip
 repository: https://github.com/kevmoo/stats
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.12.0
 
 dependencies:
   json_annotation: ^4.9.0
 
 dev_dependencies:
+  api_summary: ^1.2.0
   build_runner: ^2.2.1
   build_verify: ^3.0.0
   checks: ^0.3.0

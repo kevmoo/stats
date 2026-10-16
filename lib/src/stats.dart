@@ -103,12 +103,11 @@ class Stats {
   ({double variance, double standardDeviation, double standardError}) _values({
     required bool population,
   }) {
-    final variance =
-        population
-            ? sumOfSquares / count
-            : count == 1
-            ? double.nan
-            : sumOfSquares / (count - 1);
+    final variance = population
+        ? sumOfSquares / count
+        : count == 1
+        ? double.nan
+        : sumOfSquares / (count - 1);
     final standardDeviation = math.sqrt(variance);
     return (
       variance: variance,
