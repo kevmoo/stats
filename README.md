@@ -8,7 +8,7 @@ Supports:
   `count`, `min`, `max`, `mean`, `sumOfSquares`
 - `ConfidenceInterval` over `Stats` with a given confidence level.
 
-```dart
+```dart @example example/example.dart
 import 'dart:convert';
 
 import 'package:stats/stats.dart';
