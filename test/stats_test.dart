@@ -23,7 +23,7 @@ Stats _validateJson(
 void main() {
   test('empty source is not allowed', () {
     check(() => <num>[].stats).throws<ArgumentError>().which(
-      (it) => it.has((p0) => p0.message, 'message').equals('Cannot be empty.'),
+      .it()..has('message', (p0) => p0.message).equals('Cannot be empty.'),
     );
   });
 
