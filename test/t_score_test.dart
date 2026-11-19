@@ -99,7 +99,7 @@ void main() {
     () {
       check(() => calcTScore(0, ConfidenceLevel.percent95))
           .throws<ArgumentError>()
-          .has((e) => e.message as String, 'message')
+          .has('message', (e) => e.message as String)
           .contains('Degrees of freedom must be at least 1.');
     },
   );
